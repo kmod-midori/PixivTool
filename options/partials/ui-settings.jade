@@ -1,0 +1,18 @@
+h3 {{'ui' | i18n}}
+label
+  input(type='checkbox',v-model="mark")
+  |{{'mark_downloaded_label' | i18n}}
+label
+  |{{'bg_color_label' | i18n}}
+  span(v-style="border: '1px solid #333',background: 'rgb('+bgColor.R+','+bgColor.G+','+bgColor.B +')'")
+    |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+div.row#bg-rgb
+  div.large-12.columns
+    label R
+      input(type='range',min=0,max=255,v-model='bgColor.R')
+  div.large-12.columns
+    label G
+      input(type='range',min=0,max=255,v-model='bgColor.G')
+  div.large-12.columns
+    label B
+      input(type='range',min=0,max=255,v-model='bgColor.B')

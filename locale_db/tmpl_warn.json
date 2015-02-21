@@ -1,0 +1,14 @@
+﻿{
+    "no_direct_use": {
+        "locales": {
+            "en": "Don't use {{%s}} directly.",
+            "zh_CN": "请勿直接使用{{%s}}。"
+        }
+    },
+    "invalid_tag": {
+        "locales": {
+            "en": "{{%s}} not found.",
+            "zh_CN": "模板标签{{%s}}不存在。"
+        }
+    }
+}

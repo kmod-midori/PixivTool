@@ -1,0 +1,27 @@
+h3 {{'download' | i18n}}
+label
+  input(type='checkbox',v-model="keepHistory")
+  |{{'save_downloaded_label' | i18n}}
+label
+  input(type="checkbox",v-model="notify")
+  |{{'comp_notify_label' | i18n}}
+label(v-class="error:warnings.length != 0")
+  |{{'filename_tmpl_label' | i18n}}
+  input(type="text",v-model="filename")
+div.alert-box.alert(v-repeat="warnings")
+  |{{$value}}
+div.panel.callout
+  p {{'example_output' | i18n}}
+  p {{outFilename}}.png
+h5 {{'avail_tmpl_tag' | i18n}}
+hr
+div.row
+  div.small-4.columns(v-repeat="pattern")
+    h6 {{$key | i18n}}
+    div(v-repeat="$value").panel
+      |{{$value[0]}}
+      p {{$value[1] | i18n}}
+      hr
+      p
+        |{{'example_output' | i18n}}
+        |{{render($value[0])}}

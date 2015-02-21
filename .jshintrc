@@ -1,0 +1,7 @@
+{
+    "predef": [ "chrome" ],
+    "node": true,
+    "globals": { 
+        "Promise": true
+    }
+}
