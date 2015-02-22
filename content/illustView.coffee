@@ -22,8 +22,10 @@ if $('.works_display').length != 0
     if work.is_manga
       app.selected = (true for [1..work.page_count])
 
-    pm.dbGet id,(err)-> app.downloaded = !err
-    setInterval (->pm.dbGet id,(err)-> app.downloaded = !err),3000
+    updateStat = ->
+      pm.queryId [id],(result)-> app.downloaded = result[id]
+
+    chrome.storage.onChanged.addListener updateStat
 
     download = ->
       w = {

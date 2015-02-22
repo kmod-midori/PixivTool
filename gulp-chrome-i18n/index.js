@@ -1,84 +1,33 @@
-﻿var through = require('through');
+﻿var through = require('through2');
 var path = require('path');
 var gutil = require('gulp-util');
 var PluginError = gutil.PluginError;
-var _ = require('lodash');
 
 var pluginName = 'gulp-chrome-i18n';
 
 
 module.exports = function() {
-  var inputFiles = [];
-  var firstFile;
+  var stream = through.obj(function (file,enc,cb) {
+    var infile = JSON.parse(file.contents);
 
-  function bufferFile(file) {
-
-    if (file.isNull()) {
-      return;
-    }
-
-    if (file.isStream()) {
-      return this.emit('error',
-        new PluginError(pluginName, 'Streaming not supported'));
-    }
-
-    var db = {}
-
-    try {
-      db = JSON.parse(file.contents)
-    } catch (e) {
-      return this.emit('error',
-        new PluginError(pluginName, 'Failed to parse ' + file.relative));
-    }
-
-    if (!firstFile) {
-      firstFile = file;
-    }
-    for (var msg in db) {
-      if (typeof db[msg].locales === 'undefined') {
-        return this.emit('error',
-          new PluginError(pluginName, [
-            'Missing \'locales\' field @',
-            msg,
-            ' (', file.relative, ')'
-          ].join('')));
+    var langs = [];
+    for (var msgid in infile) {
+      for(var lang in infile[msgid]){
+        langs[lang] = langs[lang] || {};
+        langs[lang][msgid] = {
+          message:infile[msgid][lang]
+        };
       }
     }
 
-    inputFiles.push(db);
-  }
-
-  function endStream() {
-    if (inputFiles.length === 0) {
-      return this.emit('end');
+    for(var i in langs){
+      var outFile = file.clone({ contents: false });
+      outFile.path = path.join(file.base, i, 'messages.json');
+      outFile.contents = new Buffer(JSON.stringify(langs[i]));
+      this.push(outFile);
     }
+    cb();
+  });
 
-    var out = {}
-
-    for (var i/*file*/ in inputFiles) {
-      var db = inputFiles[i];
-
-      for (var j/*message*/ in db) {
-        var msg = db[j];
-
-        for (var k/*language*/ in msg.locales) {
-          if (typeof out[k] === 'undefined') {
-            out[k] = {}
-          }
-
-          out[k][j] = { message: msg.locales[k] };
-        }
-      }
-    }
-
-    for (var i in out) {
-      var outFile = firstFile.clone({ contents: false });
-      outFile.path = path.join(firstFile.base, i, 'messages.json');
-      outFile.contents = new Buffer(JSON.stringify(out[i]));
-      this.emit('data', outFile);
-    }
-    this.emit('end')
-  }
-
-  return through(bufferFile, endStream);
+  return stream;
 };

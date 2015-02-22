@@ -1,19 +1,20 @@
-_ = require 'lodash'
+#_ = require 'lodash'
 EventEmitter = (require 'events').EventEmitter
+history = require './history'
 
 emitter = new EventEmitter()
 
-(require './db')(emitter)
-(require './download')(emitter)
-chrome.runtime.onMessage.addListener (request, sender, sendResponse)->
-  rep = (response)->
-    sendResponse(response)
 
-  emitter.emit(request.type,request,rep)
+chrome.runtime.onConnect.addListener (port)->
+  port.onMessage.addListener (msg)->
+    if msg.payload.op is 'queryHistory'
+      result = history.query(msg.payload.data)
+      port.postMessage {id:msg.id,payload:result}
 
-chrome.webRequest.onBeforeSendHeaders.addListener(((details)->
-  if details.tabId == -1
-    details.requestHeaders.push({name:'Referer',value:'http://www.pixiv.net'})
+#Black Magic.
+chrome.webRequest.onBeforeSendHeaders.addListener((details)->
+  details.requestHeaders.push({name:'Referer',value:'http://www.pixiv.net'})
   return {requestHeaders: details.requestHeaders}
-  ),{urls:["http://*.pixiv.net/*"],tabId:-1},
-["blocking", "requestHeaders"])
+,{urls:["http://*.pixiv.net/*"],tabId:-1},["blocking", "requestHeaders"])
+
+#chrome.storage.local.set({history:require './out.json'})

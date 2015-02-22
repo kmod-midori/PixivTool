@@ -1,8 +1,5 @@
 h3 {{'download' | i18n}}
 label
-  input(type='checkbox',v-model="keepHistory")
-  |{{'save_downloaded_label' | i18n}}
-label
   input(type="checkbox",v-model="notify")
   |{{'comp_notify_label' | i18n}}
 label(v-class="error:warnings.length != 0")

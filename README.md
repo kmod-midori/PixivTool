@@ -7,5 +7,5 @@ This project is still in early stage, pull requests are welcome.
 
 # TODO
 - [ ] Better i18n.
-- [ ] Use gulp with webpack.
+- [X] Use gulp with webpack.
 - [ ] Remove jQuery.

@@ -1,6 +1,7 @@
 var webpack = require("webpack");
 var path = require("path");
 module.exports = {
+  watch:true,
   entry:{
     options:'./options/entry.coffee',
     content:'./content/entry.coffee',
@@ -14,6 +15,16 @@ module.exports = {
       { test: /\.vue$/, loader: "vue" },
       { test: /\.json$/, loader: "json-loader" },
       { test: /\.cson$/, loader: "cson-loader" },
+      { test: /\.yml$/, loader: "json!yaml" },
+      {
+        test: /\.scss$/,
+        loader: "style!css!sass?outputStyle=expanded&" +
+          "includePaths[]=" +
+            (path.resolve(__dirname, "./bower_components")) + "&" +
+          "includePaths[]=" +
+            (path.resolve(__dirname, "./node_modules")) + "&" +
+          "includePaths[]=./bower_components/foundation/scss"
+      }
     ]
   },
   resolve:{
@@ -25,7 +36,8 @@ module.exports = {
     ],
     alias:{
       global:path.join(__dirname,"global")
-    }
+    },
+    modulesDirectories: ["bower_components", "node_modules"]
   },
   output: {
     filename: "[name].bundle.js",
@@ -33,6 +45,9 @@ module.exports = {
     publicPath:"/"
   },
   plugins:[
+    new webpack.ResolverPlugin([
+      new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
+    ]),
     new webpack.IgnorePlugin(/^fs$/),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.CommonsChunkPlugin("deps.js")

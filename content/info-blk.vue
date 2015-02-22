@@ -16,7 +16,7 @@ div.area_inside
   |Found {{idCount}}, {{dlCount}} of them are in your history database.
   div(v-show="illustView")
     hr
-    h3(v-if="downloaded") [Downloaded]
+    h3.pxtool-dl-mark(v-if="downloaded") [Downloaded]
     h3(v-if="!downloaded") [Not Downloaded Before]
     h3(v-if="!loaded") Loading...
     h3(v-if="loadError") {{loadError}}

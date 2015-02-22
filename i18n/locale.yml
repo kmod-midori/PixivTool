@@ -1,0 +1,128 @@
+app_name:
+  en: Pixiv Tool
+  zh_CN: Pixiv Tool
+
+redownload:
+  en: Download Again
+  zh_CN: 重新下载
+
+settings:
+  en: Settings
+  zh_CN: 设置
+history_backup:
+  en: History Backup
+  zh_CN: 备份下载历史
+history_restore:
+  en: History Restore
+  zh_CN: 还原下载历史
+ui:
+  en: User Interface
+  zh_CN: 界面
+download:
+  en: Download
+  zh_CN: 下载
+save:
+  en: Save
+  zh_CN: 保存
+discard:
+  en: Discard
+  zh_CN: 撤销
+mark_downloaded_label:
+  en: "Mark downloaded images in search page, bookmark page, etc."
+  zh_CN: 在搜索结果页面、收藏页面、排行榜等处标记已下载作品
+settings_saved:
+  en: Saved.
+  zh_CN: 设置已保存。
+save_downloaded_label:
+  en: Save download history
+  zh_CN: 保存下载历史
+filename_example_label:
+  en: "Images will be saved like: "
+  zh_CN: 作品将会保存为类似如下的文件名：
+example_output:
+  en: "Example output: "
+  zh_CN: 示例输出：
+filename_tmpl_label:
+  en: File name template
+  zh_CN: 文件名模板
+avail_tmpl_tag:
+  en: Available Template Tags
+  zh_CN: 可用模板标签
+illust:
+  en: Illustration
+  zh_CN: 作品
+author:
+  en: Author
+  zh_CN: 作者
+paging:
+  en: Pages
+  zh_CN: 分页
+comp_notify_label:
+  en: Show desktop notification when completed.
+  zh_CN: 完成时显示桌面通知
+bg_color_label:
+  en: Background color
+  zh_CN: 标记背景颜色
+has_error:
+  en: Your input has errors.
+  zh_CN: 您的输入存在错误。
+required:
+  en: This field is required.
+  zh_CN: 此项目必填。
+done:
+  en: Done.
+  zh_CN: 已完成。
+
+illust_id:
+  en: Illustration ID
+  zh_CN: 作品ID
+illust_title:
+  en: Illustration Title
+  zh_CN: 作品标题
+illust_tags:
+  en: "Illustration Tags, put your delimiter between [ and ]. Use {{tags[ ]|x}}to limit the length of every tag."
+  zh_CN: "作品的标签，请在 [ 和 ] 之间输入分隔符，默认为英文逗号。
+    可通过使用{{tags[ ]|x}}来限制输出的每个标签的长度不超过x（长度超出的标签将被过滤）。"
+illust_tools:
+  en: "Tools Used In Illustration, usage is the same as {{tags[ ]}}"
+  zh_CN: "作品使用的工具，使用方法和{{tags[ ]}}相同。"
+illust_year:
+  en: Illustration Upload Year
+  zh_CN: 作品上传时间（年）
+illust_month:
+  en: Illustration Upload Month
+  zh_CN: 作品上传时间（月）
+illust_day:
+  en: Illustration Upload Day (in one month)
+  zh_CN: 作品上传时间（日）
+illust_hour:
+  en: Illustration Upload Hour
+  zh_CN: 作品上传时间（时）
+illust_minute:
+  en: Illustration Upload Minute
+  zh_CN: 作品上传时间（分）
+author_id:
+  en: "Author's ID"
+  zh_CN: 作者ID
+author_username:
+  en: "Author's user name (unique)"
+  zh_CN: 作者唯一用户名
+author_nickname:
+  en: "Author's nick name"
+  zh_CN: 作者昵称
+page_curr:
+  en: "Current page number, start from 1."
+  zh_CN: 当前页码，从1开始计算。
+page_count:
+  en: Total page number
+  zh_CN: 页面数量
+page_orig:
+  en: "Current page number, start from 0."
+  zh_CN: 当前页码，从0开始计算。
+if_multi:
+  en: "Output \"text\" only if there is more than one page."
+  zh_CN: "仅在有多页时输出\"text\""
+
+invalid_tag:
+  en: "{{%s}} not found."
+  zh_CN: "模板标签{{%s}}不存在。"

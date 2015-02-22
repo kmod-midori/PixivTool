@@ -1,8 +1,14 @@
 $ = require 'jquery'
 url = require 'url'
 qs = require 'querystring'
+async = require 'async'
+_ = require 'lodash'
 pm = require './pm'
 app = require './app'
+
+cargo = async.cargo (ids,cb)->
+  pm.queryId ids,cb
+,50
 
 getWorkID = (_url)->
   return false if not _url?
@@ -15,18 +21,18 @@ refresh = ->
     id = getWorkID($(elem).find('a').eq(0).attr('href'))
     return if !id
     idCount++
-    pm.dbGet id,(err)->
-      return if err
+    cargo.push id,(result)->
+      return if !result[id]
       app.$set 'dlCount',app.dlCount + 1
       $(elem).addClass("pxtool-dl-mark")
   app.$set 'idCount',idCount
 
-setInterval refresh,3000
 refresh()
+chrome.storage.onChanged.addListener refresh
 
 target = document.querySelector('#illust-recommend')
 
-if target is not null
+if target != null
   observer = new MutationObserver(_.throttle(refresh, 1500))
   observer.observe(target, {
     childList: true,

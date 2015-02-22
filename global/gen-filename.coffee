@@ -11,7 +11,7 @@ date2json = (d)->
 
 module.exports = (tmpl,data)->
   tim = (require 'tinytim').render
-  data.date = date2json(new Date(data._date))
+  data.date = date2json(new Date(data.created_time))
   data.now = date2json(new Date())
 
   data.page.curr = data.page.orig + 1
@@ -29,7 +29,7 @@ module.exports = (tmpl,data)->
         .join(sep)
         .replace('{{', '')
   ).replace(/\?\[(.*?)\]\?/g, (match, str)->
-    if data.isMulti
+    if data.is_manga
       return str
     else
       return ''
