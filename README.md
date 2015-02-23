@@ -5,6 +5,12 @@ Run gulp to generate locales, run webpack to get packaged code.
 
 This project is still in early stage, pull requests are welcome.
 
+# How To Build
+- Get Node.js
+- `npm install -g gulp webpack`
+- Run `npm install` in root directory and gulp-chrome-i18n/
+- Run `gulp build` and everyting is in build/
+
 # TODO
 - [ ] Better i18n.
 - [X] Use gulp with webpack.

@@ -9,6 +9,7 @@
     "coffee-script": "^1.9.1",
     "cson-loader": "0.0.3",
     "css-loader": "^0.9.1",
+    "del": "^1.1.1",
     "gulp": "^3.8.11",
     "gulp-jade": "^1.0.0",
     "gulp-util": "^3.0.3",
