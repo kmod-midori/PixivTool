@@ -17,5 +17,5 @@ request = (payload,cb)->
 exports.queryId = (q, cb)->
   request {op:'queryHistory', data:q},cb
 
-exports.reqDownload = (url, filename)->
-  chrome.runtime.sendMessage {type:'download',url,filename}
+exports.requestDownload = (work, urls, tmpl)->
+  request {op:'download',data:{work,urls,tmpl}}

@@ -19,34 +19,30 @@ if $('.works_display').length != 0
       return app.loadError = 'Load Failed.'
     work = resp.response[0]
     app.workInfo = work
+    console.log 'WORK',_.cloneDeep work
     if work.is_manga
       app.selected = (true for [1..work.page_count])
 
     updateStat = ->
-      pm.queryId [id],(result)-> app.downloaded = result[id]
+      pm.queryId [id],(result)->
+        app.downloaded = result[id]
 
     chrome.storage.onChanged.addListener updateStat
-
+    updateStat()
     download = ->
-      w = {
-        id:work.id
-        title:work.title
-        user:_.clone work.user
-        tags:work.tags
-        tools:work.tools
-        date:work.created_time
-        isMulti:work.is_manga
-        page:{
-          count:work.page_count
-        }
-      }
-      gf = require 'global/gen-filename'
-      w.page.orig = 0
-      if !work.is_manga
-        pm.reqDownload work.image_urls.large,(gf app.settings.filename,w).result
-        pm.dbPush id,w
+      url = []
+      switch work.type
+        when "illustration"
+          url[0] = [work.image_urls.large, 0]
+        when "manga"
+          work.metadata.pages.forEach (page, i)->
+            return if !app.selected[i]
+            url.push [page.image_urls.large,i]
+        when "ugoira"
+          url[0] = [work.metadata.zip_urls.ugoira600x600, 0]
+      pm.requestDownload (_.cloneDeep work),url,app.settings.filename
 
-    app.download = _.debounce download,20000,{
+    app.download = _.debounce download,1000,{
       leading:true,trailing:false
       }
 

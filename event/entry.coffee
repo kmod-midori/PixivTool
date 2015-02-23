@@ -1,6 +1,7 @@
 #_ = require 'lodash'
 EventEmitter = (require 'events').EventEmitter
 history = require './history'
+download = require './download'
 
 emitter = new EventEmitter()
 
@@ -10,6 +11,8 @@ chrome.runtime.onConnect.addListener (port)->
     if msg.payload.op is 'queryHistory'
       result = history.query(msg.payload.data)
       port.postMessage {id:msg.id,payload:result}
+    if msg.payload.op is 'download'
+      download msg.payload.data
 
 #Black Magic.
 chrome.webRequest.onBeforeSendHeaders.addListener((details)->
