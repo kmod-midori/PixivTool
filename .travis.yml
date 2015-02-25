@@ -5,3 +5,5 @@ before_script:
   - npm install -g gulp bower
   - bower install
 script: gulp build
+env:
+  SKIP_SASS_BINARY_DOWNLOAD_FOR_CI=true
