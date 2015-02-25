@@ -1,4 +1,6 @@
 node_modules/
-build/
+dist/
 _locales/\
 out.json
+bower_components/
+build/

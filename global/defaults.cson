@@ -1,8 +1,0 @@
-filename:
-  '{{user.name}} - {{title}} ({{id}}@{{user.id}}) [ #{{tags[ ]}} ]?[ {{page.curr}}P]?'
-mark:true
-bgColor:
-  R:255
-  G:160
-  B:122
-notify:true

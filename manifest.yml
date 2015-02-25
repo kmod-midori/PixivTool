@@ -1,5 +1,5 @@
 name: Pixiv Tool
-version: 1.0.0
+version: 1.1.0
 manifest_version: 2
 author: Midori Kochiya
 permissions:
@@ -12,7 +12,7 @@ permissions:
   - http://*.pixiv.net/*
 default_locale: en
 options_page: options.html
-content_security_policy: script-src 'self' 'unsafe-eval'; object-src 'self'
+content_security_policy: script-src 'self' 'unsafe-eval'; object-src 'self;'
 content_scripts:
   - matches:
     - http://www.pixiv.net/mypage.php*
@@ -23,9 +23,9 @@ content_scripts:
     - http://www.pixiv.net/member_illust.php*
     js:
       - bundles/deps.js
-      - bundles/content.bundle.js
+      - bundles/content.js
     run_at: document_idle
 background:
   scripts:
     - bundles/deps.js
-    - bundles/event.bundle.js
+    - bundles/background.js

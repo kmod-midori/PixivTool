@@ -1,0 +1,78 @@
+<form>
+  <a href="#" class="" {{action 'save'}} {{bind-attr class=":button :right invalid:disabled"}}>{{t 'save'}}</a>
+  <div id="ui-settings">
+    <h3>{{t 'ui'}}</h3>
+    <label>
+      {{input type="checkbox" name="mark" checked=mark}}
+      {{t 'mark_downloaded_label'}}
+    </label>
+    <label>
+      {{t 'bg_color_label'}}{{bgColor}}
+      {{input type="color" value=bgColor id="bg-color"}}
+    </label>
+  </div>
+  <hr>
+  <div id="dl-settings">
+    <h3>{{t 'download'}}</h3>
+    <label {{bind-attr class="invalid:error"}}>
+      {{t 'filename_tmpl_label'}}
+      {{input value=filename}}
+    </label>
+    {{#each warn in warnings}}
+    <div class="alert-box alert">
+      {{warn}}
+    </div>
+    {{/each}}
+    <div class="panel callout">
+      <p>
+        {{t 'example_output'}}
+      </p>
+      <p>
+        {{output}}.png
+      </p>
+    </div>
+    <h5>{{t 'avail_tmpl_tag'}}</h5>
+    <hr>
+    <div class="row">
+      {{#with patterns.illust as pats}}
+      <div class="small-4 columns">
+        <h6>{{t 'illust'}}</h6>
+        {{#each pat in pats}}
+        <div class="panel">
+          {{pat.[0]}}
+          <p>
+            {{t pat.[1]}}
+          </p>
+        </div>
+        {{/each}}
+      </div>
+      {{/with}}
+      {{#with patterns.author as pats}}
+      <div class="small-4 columns">
+        <h6>{{t 'author'}}</h6>
+        {{#each pat in pats}}
+        <div class="panel">
+          {{pat.[0]}}
+          <p>
+            {{t pat.[1]}}
+          </p>
+        </div>
+        {{/each}}
+      </div>
+      {{/with}}
+      {{#with patterns.paging as pats}}
+      <div class="small-4 columns">
+        <h6>{{t 'paging'}}</h6>
+        {{#each pat in pats}}
+        <div class="panel">
+          {{pat.[0]}}
+          <p>
+            {{t pat.[1]}}
+          </p>
+        </div>
+        {{/each}}
+      </div>
+      {{/with}}
+    </div>
+  </div>
+</form>
