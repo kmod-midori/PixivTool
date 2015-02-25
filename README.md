@@ -1,4 +1,4 @@
-# PixivTool [![Dependency Status](https://david-dm.org/chengyuhui/PixivTool.svg?style=flat)](https://david-dm.org/chengyuhui/PixivTool) [![devDependency Status](https://david-dm.org/chengyuhui/PixivTool/dev-status.svg?style=flat)](https://david-dm.org/chengyuhui/PixivTool#info=devDependencies)
+# PixivTool [![Dependency Status](https://david-dm.org/chengyuhui/PixivTool.svg?style=flat)](https://david-dm.org/chengyuhui/PixivTool) [![devDependency Status](https://david-dm.org/chengyuhui/PixivTool/dev-status.svg?style=flat)](https://david-dm.org/chengyuhui/PixivTool#info=devDependencies)![Travis Status ](https://travis-ci.org/chengyuhui/PixivTool.svg?branch=master)
 This is a Chrome plugin for Pixiv users.
 
 This project is still in early stage, pull requests are welcome.
