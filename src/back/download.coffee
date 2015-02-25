@@ -3,6 +3,7 @@ _ = require 'lodash'
 gf = require '../genFilename'
 history = require './history'
 tz = require 'timezone'
+nodeUrl = require 'url'
 
 removeFields = (x)->
   x._v = 1
@@ -33,10 +34,12 @@ module.exports = (data)->
       count:w.page_count
       orig:url[1]
     }
+    extname = path.extname(nodeUrl.parse(url[0]).pathname)
+    filename = path.join 'pixiv',(gf data.tmpl,w).result + extname
+    console.log filename
     chrome.downloads.download({
       url:url[0]
-      filename:path.join 'pixiv',
-        (gf data.tmpl,w).result + path.extname(url[0])
+      filename
     })
   data.work.created_time = tz(data.work.created_time, 'Asia/Tokyo')
   data.work.reuploaded_time = tz(data.work.reuploaded_time, 'Asia/Tokyo')
