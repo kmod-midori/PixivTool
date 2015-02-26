@@ -31,6 +31,7 @@ if $('.works_display').length != 0
     updateStat()
     download = ->
       url = []
+      #FIXME Can't download multi page illustration with type 'illustration'
       switch work.type
         when "illustration"
           url[0] = [work.image_urls.large, 0]
