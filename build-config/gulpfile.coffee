@@ -54,6 +54,15 @@ gulp.task 'webpack:production', ->
   conf = Object.create webpackConf
   conf.plugins.push new webpack.optimize.DedupePlugin()
   conf.plugins.push new webpack.optimize.UglifyJsPlugin()
+  conf.resolve.alias = {
+    jquery:'jquery/dist/jquery.min.js'
+    'toastr/toastr.js':'toastr/toastr.min.js'
+    'toastr/toastr.css':'toastr/toastr.min.css'
+    handlebars:'handlebars/handlebars.min.js'
+    ember$:'ember/ember.min.js'
+    'ember-data':'ember-data/ember-data.min.js'
+    'FileSaver.js/FileSaver.js':'FileSaver.js/FileSaver.min.js'
+  }
   gulp.src 'src/opts/index.coffee'
     .pipe plugins.webpack(conf)
     .pipe gulp.dest dist + '/bundles'
