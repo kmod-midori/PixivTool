@@ -23,7 +23,9 @@ gulp.task 'watch:assets',['manifest','html', 'i18n'] ,->
   gulp.watch htmlPath,['html']
   gulp.watch './locale.yml',['i18n']
 
-gulp.task 'build',['manifest','html','i18n','webpack:production']
+gulp.task 'build',['manifest','html','i18n','webpack:production'],->
+  gulp.src './icon128.png'
+    .pipe gulp.dest dist
 
 gulp.task 'clean', (cb)->
   (require 'del') [dist],cb

@@ -29,3 +29,5 @@ background:
   scripts:
     - bundles/deps.js
     - bundles/background.js
+icons:
+  128: icon128.png
