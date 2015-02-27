@@ -20,7 +20,7 @@ if $('.works_display').length != 0
     work = resp.response[0]
     app.workInfo = work
     console.log 'WORK',_.cloneDeep work
-    if work.is_manga
+    if work.page_count > 1
       app.selected = (true for [1..work.page_count])
 
     updateStat = ->
@@ -29,23 +29,27 @@ if $('.works_display').length != 0
 
     chrome.storage.onChanged.addListener updateStat
     updateStat()
+
     download = ->
-      url = []
-      #FIXME Can't download multi page illustration with type 'illustration'
-      switch work.type
-        when "illustration"
-          url[0] = [work.image_urls.large, 0]
-        when "manga"
+      getURL = ->
+        if work.type is "illustration" and work.page_count is 1
+          return [{url:work.image_urls.large, page:0}]
+
+        multi1 = work.type is "illustration" and work.page_count > 1
+        multi2 = work.type is "manga"
+        if multi1 or multi2
+          urls = []
           work.metadata.pages.forEach (page, i)->
             return if !app.selected[i]
-            url.push [page.image_urls.large,i]
-        when "ugoira"
-          url[0] = [work.metadata.zip_urls.ugoira600x600, 0]
-      pm.requestDownload (_.cloneDeep work),url,app.settings.filename
+            urls.push {url:page.image_urls.large, page:i}
+          return urls
 
-    app.download = _.debounce download,1000,{
-      leading:true,trailing:false
-      }
+        if work.type is "ugoira"
+          return [{url:work.metadata.zip_urls.ugoira600x600, page:0}]
+
+      pm.requestDownload (_.cloneDeep work),getURL(),app.settings.filename
+
+    app.download = _.debounce download,1000,{leading:true,trailing:false}
 
   .fail ->
     app.loadError = 'Load Failed.'

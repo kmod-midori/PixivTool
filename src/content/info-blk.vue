@@ -22,7 +22,7 @@ div.area_inside
     h3(v-if="loadError") {{loadError}}
     div(v-if="workInfo")
       p Type: {{workInfo.type}}
-      div(v-if="workInfo.type == 'manga'")
+      div(v-if="isMulti")
         ul
           li(v-repeat="workInfo.metadata.pages")
             label

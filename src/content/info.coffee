@@ -7,4 +7,8 @@ module.exports = {
     loaded:false
     loadError:""
     workInfo:false
+  computed:
+    isMulti:->
+      return false if !@workInfo
+      @workInfo.page_count > 1
 }

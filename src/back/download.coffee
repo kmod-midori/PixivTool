@@ -32,13 +32,13 @@ module.exports = (data)->
     w = _.clone data.work
     w.page = {
       count:w.page_count
-      orig:url[1]
+      orig:url.page
     }
-    extname = path.extname(nodeUrl.parse(url[0]).pathname)
+    extname = path.extname(nodeUrl.parse(url.url).pathname)
     filename = path.join 'pixiv',(gf data.tmpl,w).result + extname
     console.log filename
     chrome.downloads.download({
-      url:url[0]
+      url:url.url
       filename
     })
   data.work.created_time = tz(data.work.created_time, 'Asia/Tokyo')
