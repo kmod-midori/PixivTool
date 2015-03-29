@@ -1,6 +1,6 @@
 path = require 'path'
 _ = require 'lodash'
-gf = require '../genFilename'
+gf = require 'shared/genFilename'
 history = require './history'
 tz = require 'timezone'
 nodeUrl = require 'url'

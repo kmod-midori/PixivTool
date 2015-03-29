@@ -45,6 +45,9 @@ module.exports =
   resolve:
     extensions: ['', '.coffee', '.webpack.js', '.web.js', '.js', '.scss', '.yml']
     modulesDirectories: ['bower_components', 'node_modules']
+    alias:
+      shared:path.resolve './src/shared'
+      plugin:path.resolve './src/plugin'
 
   plugins:[
     new webpack.ResolverPlugin([

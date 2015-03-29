@@ -7,9 +7,9 @@ require 'script!handlebars'
 require 'script!ember'
 require 'script!ember-data'
 require 'script!FileSaver.js/FileSaver.js'
-gf = require '../genFilename'
-__ = require '../i18n'
-pm = require '../pm'
+gf = require 'shared/genFilename'
+__ = require 'shared/i18n'
+pm = require 'shared/pm'
 
 require './templates'
 App = Ember.Application.create()
@@ -36,7 +36,7 @@ App.ExSettingAdapter = DS.Adapter.extend
       if chrome.runtime.lastError
         return reject chrome.runtime.lastError
       setting = items.settings || {}
-      def = require('../defaults.cson')
+      def = require('shared/defaults.cson')
       $.extend def,setting
       def.id = 0
       resolve def

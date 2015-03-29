@@ -3,7 +3,7 @@ url = require 'url'
 qs = require 'querystring'
 async = require 'async'
 _ = require 'lodash'
-pm = require '../pm'
+pm = require 'shared/pm'
 app = require './app'
 
 cargo = async.cargo (ids,cb)->

@@ -1,7 +1,7 @@
 app = require './app'
 $ = require 'jquery'
 qs = require 'querystring'
-pm = require '../pm'
+pm = require 'shared/pm'
 _ = require 'lodash'
 
 if $('.works_display').length != 0

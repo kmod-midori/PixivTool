@@ -8,19 +8,13 @@ permissions:
   - webRequest
   - webRequestBlocking
   - unlimitedStorage
-  - https://public-api.secure.pixiv.net/
-  - http://*.pixiv.net/*
+  - '<all_urls>'
 default_locale: en
 options_page: options.html
 content_security_policy: script-src 'self' 'unsafe-eval'; object-src 'self'
 content_scripts:
   - matches:
-    - http://www.pixiv.net/mypage.php*
-    - http://www.pixiv.net/bookmark_new_illust.php*
-    - http://www.pixiv.net/search.php*
-    - http://www.pixiv.net/bookmark.php*
-    - http://www.pixiv.net/bookmark_add.php*
-    - http://www.pixiv.net/member_illust.php*
+    - '<all_urls>'
     js:
       - bundles/deps.js
       - bundles/content.js
