@@ -14,6 +14,8 @@ manifestPath = [
 
 htmlPath = [
   './src/opts/options.html'
+  './src/popup/popup.html'
+  './src/back/background.html'
 ]
 
 gulp.task 'watch',['watch:assets', 'webpack:watch']

@@ -1,0 +1,22 @@
+<html>
+  <head>
+  </head>
+  <body style="width:400px">
+    <div id="popup">
+      <div class="nav nav-green" v-class="nav-green: active,nav-blue:!active">
+        <a class="nav-item nav-head" href="#">{{'app_name'|i18n}}</a>
+        <a class="nav-item" href="#">{{'settings'|i18n}}</a>
+        <a class="nav-item" href="#">{{'purge_meta_cache'|i18n}}</a>
+      </div>
+      <div class="content" style="margin:10px">
+        <div class="msg msg-blue" v-if="!active">{{'popup_inactive' | i18n}}</div>
+        <div v-if="active">
+
+        </div>
+      </div>
+    </div>
+
+    <script src="bundles/deps.js"></script>
+    <script src="bundles/popup.js"></script>
+  </body>
+</html>

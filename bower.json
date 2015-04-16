@@ -21,7 +21,8 @@
     "handlebars": "~3.0.0",
     "ember-data": "1.0.0-beta.15",
     "toastr": "~2.1.0",
-    "FileSaver.js": "eligrey/FileSaver.js"
+    "FileSaver.js": "eligrey/FileSaver.js",
+    "Kimochi.css": "chengyuhui/Kimochi.css"
   },
   "resolutions": {
     "ember": "~1.10.0",

@@ -2,6 +2,14 @@ app_name:
   en: Pixiv Tool
   zh_CN: Pixiv Tool
 
+purge_meta_cache:
+  en: Purge Metadata Cache
+  zh_CN: 清除元数据缓存
+
+popup_inactive:
+  en: This page is not supported.
+  zh_CN: 本页面不受支持。
+
 redownload:
   en: Download Again
   zh_CN: 重新下载

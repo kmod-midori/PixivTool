@@ -3,9 +3,10 @@ webpack = require 'webpack'
 
 module.exports =
   entry:
-    options:'./src/opts/index.coffee'
+#    options:'./src/opts/index.coffee'
     content:'./src/content/entry.coffee'
     background: './src/back/entry.coffee'
+    popup: './src/popup/entry.coffee'
   output:
     path: path.resolve './dist'
     filename:'[name].js'
@@ -15,6 +16,14 @@ module.exports =
       {
         test: /\.coffee$/
         loader: 'coffee-loader'
+      }
+      {
+        test: /\.css$/
+        loader: 'style!css'
+      }
+      {
+        test: /\.(coffee\.md|litcoffee)$/
+        loader: 'coffee-loader?literate'
       }
       {
         test: /\.scss$/,
@@ -43,11 +52,10 @@ module.exports =
     ]
 
   resolve:
-    extensions: ['', '.coffee', '.webpack.js', '.web.js', '.js', '.scss', '.yml']
+    extensions: ['', '.coffee', '.webpack.js', '.web.js', '.js', '.scss', '.yml', '.coffee.md']
     modulesDirectories: ['bower_components', 'node_modules']
     alias:
       shared:path.resolve './src/shared'
-      plugin:path.resolve './src/plugin'
 
   plugins:[
     new webpack.ResolverPlugin([
