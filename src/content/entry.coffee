@@ -1,2 +1,3 @@
-loc = document.location
-qs = require 'querystring'
+chrome.runtime.connect()
+
+rpc = require 'shared/RpcClient'

@@ -10,53 +10,34 @@ module.exports =
   output:
     path: path.resolve './dist'
     filename:'[name].js'
-
+    publicPath: '/bundles/'
   module:
     loaders:[
       {
         test: /\.coffee$/
-        loader: 'coffee-loader'
+        loader: 'regenerator!coffee'
       }
       {
         test: /\.css$/
         loader: 'style!css'
       }
       {
-        test: /\.(coffee\.md|litcoffee)$/
-        loader: 'coffee-loader?literate'
-      }
-      {
-        test: /\.scss$/,
-        loader: [
-          'style!css!sass?'
-          'outputStyle=expanded&'
-          'includePaths[]=./bower_components/foundation/scss/'
-        ].join('')
-      }
-      {
         test: /\.yml$/
         loader: "json!yaml"
-      }
-      {
-        test: /\.hbs$/
-        loader: "raw"
       }
       {
         test: /\.cson$/
         loader: "cson"
       }
-      {
-        test: /\.vue$/
-        loader: "vue"
-      }
     ]
 
   resolve:
-    extensions: ['', '.coffee', '.webpack.js', '.web.js', '.js', '.scss', '.yml', '.coffee.md']
+    extensions: ['', '.coffee', '.webpack.js', '.web.js', '.js', '.yml', '.coffee.md']
     modulesDirectories: ['bower_components', 'node_modules']
     alias:
       shared:path.resolve './src/shared'
-
+      fs:path.resolve './src/shared/shim/fs.coffee'
+      mkdirp:path.resolve './src/shared/shim/mkdirp.coffee'
   plugins:[
     new webpack.ResolverPlugin([
       new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
@@ -68,6 +49,6 @@ module.exports =
     ].join("\n"))
     new webpack.ProvidePlugin({
       _: 'lodash'
+      Promise:'bluebird'
     })
-    new webpack.IgnorePlugin /^fs$/
   ]

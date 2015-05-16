@@ -12,22 +12,18 @@ manifestPath = [
   './manifest.yml'
 ]
 
-htmlPath = [
-  './src/opts/options.html'
-  './src/popup/popup.html'
-  './src/back/background.html'
+overlayPath = [
+  './overlay/**/*'
 ]
 
 gulp.task 'watch',['watch:assets', 'webpack:watch']
 
-gulp.task 'watch:assets',['manifest','html', 'i18n'] ,->
+gulp.task 'watch:assets',['manifest','overlay', 'i18n'] ,->
   gulp.watch manifestPath,['manifest']
-  gulp.watch htmlPath,['html']
+  gulp.watch overlayPath,['overlay']
   gulp.watch './locale.yml',['i18n']
 
-gulp.task 'build',['manifest','html','i18n','webpack:production'],->
-  gulp.src './icon128.png'
-    .pipe gulp.dest dist
+gulp.task 'build',['manifest','html','i18n','webpack:production']
 
 gulp.task 'clean', (cb)->
   (require 'del') [dist],cb
@@ -37,8 +33,8 @@ gulp.task 'manifest', ->
     .pipe plugins.yaml space:2
     .pipe gulp.dest dist
 
-gulp.task 'html', ->
-  gulp.src htmlPath
+gulp.task 'overlay', ->
+  gulp.src overlayPath
     .pipe gulp.dest dist
 
 gulp.task 'i18n', ->
@@ -58,15 +54,6 @@ gulp.task 'webpack:production', ->
   conf = Object.create webpackConf
   conf.plugins.push new webpack.optimize.DedupePlugin()
   conf.plugins.push new webpack.optimize.UglifyJsPlugin()
-  conf.resolve.alias = {
-    jquery:'jquery/dist/jquery.min.js'
-    'toastr/toastr.js':'toastr/toastr.min.js'
-    'toastr/toastr.css':'toastr/toastr.min.css'
-    handlebars:'handlebars/handlebars.min.js'
-    ember$:'ember/ember.min.js'
-    'ember-data':'ember-data/ember-data.min.js'
-    'FileSaver.js/FileSaver.js':'FileSaver.js/FileSaver.min.js'
-  }
   gulp.src 'src/opts/index.coffee'
     .pipe plugins.webpack(conf)
     .pipe gulp.dest dist + '/bundles'

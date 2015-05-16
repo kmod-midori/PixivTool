@@ -89,8 +89,8 @@ illust_title:
   zh_CN: 作品标题
 illust_tags:
   en: "Illustration Tags, put your delimiter between [ and ]. Use {{tags[ ]|x}}to limit the length of every tag."
-  zh_CN: "作品的标签，请在 [ 和 ] 之间输入分隔符，默认为英文逗号。
-    可通过使用{{tags[ ]|x}}来限制输出的每个标签的长度不超过x（长度超出的标签将被过滤）。"
+  zh_CN: "作品的标签，请在 [ 和 ] 之间输入分隔符，默认为英文逗号。 可通过使用{{tags[ ]|x}}来限制输出的每个标签的长度不超过x（长度超出的标签将被过滤）。"
+
 illust_tools:
   en: "Tools Used In Illustration, usage is the same as {{tags[ ]}}"
   zh_CN: "作品使用的工具，使用方法和{{tags[ ]}}相同。"

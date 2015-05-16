@@ -4,3 +4,4 @@ _locales/\
 out.json
 bower_components/
 build/
+.idea/

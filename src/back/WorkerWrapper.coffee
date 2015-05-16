@@ -1,5 +1,7 @@
+#region Workers
 SerializeWorker = require 'worker!./worker/serialize.coffee'
 DeserializeWorker = require 'worker!./worker/deserialize.coffee'
+#endregion
 
 processData = (worker, data)->
   new Promise (resolve, reject)->
