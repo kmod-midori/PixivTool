@@ -14,12 +14,12 @@
   "homepage": "https://github.com/chengyuhui/PixivTool",
   "devDependencies": {
     "coffee-loader": "^0.7.2",
-    "coffee-script": "^1.9.1",
-    "css-loader": "^0.9.1",
+    "coffee-script": "^1.9.2",
+    "css-loader": "^0.12.1",
     "del": "^1.1.1",
     "file-loader": "^0.8.1",
     "gulp": "^3.8.11",
-    "gulp-load-plugins": "^0.8.0",
+    "gulp-load-plugins": "^0.10.0",
     "gulp-util": "^3.0.3",
     "gulp-webpack": "^1.2.0",
     "gulp-yaml": "^0.2.3",
@@ -28,9 +28,9 @@
     "regenerator": "^0.8.22",
     "regenerator-loader": "^2.0.0",
     "script-loader": "^0.6.1",
-    "style-loader": "^0.8.3",
+    "style-loader": "^0.12.2",
     "through2": "^0.6.3",
-    "webpack": "^1.6.0",
+    "webpack": "^1.9.6",
     "worker-loader": "^0.6.0"
   },
   "dependencies": {
@@ -39,9 +39,9 @@
     "co": "^4.5.2",
     "jquery": "^2.1.4",
     "lodash": "^3.3.1",
-    "msgpack5": "^2.1.0",
+    "msgpack5": "^2.2.0",
     "react": "^0.13.3",
-    "timezone": "0.0.39",
+    "timezone": "0.0.41",
     "uuid": "^2.0.1"
   }
 }
