@@ -47,7 +47,7 @@ manager = require './TabManager'
 
 icon = require './IconService'
 popup = require './PopupService'
-tabMeta = require './TabMetaService'
+#tabMeta = require './TabMetaService'
 historyStore = require './HistoryStore'
 
 
