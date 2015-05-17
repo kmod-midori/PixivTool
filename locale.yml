@@ -2,13 +2,26 @@ app_name:
   en: Pixiv Tool
   zh_CN: Pixiv Tool
 
+#Scope Popup
+select_all:
+  en: Select all
+  zh_CN: 全选
+  
+deselect_all:
+  en: Deselect all
+  zh_CN: 取消选择
+  
+download:
+  en: Download
+  zh_CN: 下载
+
 purge_meta_cache:
   en: Purge Metadata Cache
   zh_CN: 清除元数据缓存
 
 popup_inactive:
-  en: This page is not supported.
-  zh_CN: 本页面不受支持。
+  en: This page is not supported or not completely loaded.
+  zh_CN: 本页面不受支持或尚未加载完成。
 
 redownload:
   en: Download Again
@@ -26,9 +39,7 @@ history_import:
 ui:
   en: User Interface
   zh_CN: 界面
-download:
-  en: Download
-  zh_CN: 下载
+
 save:
   en: Save
   zh_CN: 保存

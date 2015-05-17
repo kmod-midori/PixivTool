@@ -1,0 +1,20 @@
+body {
+  width:400px;
+}
+
+ul {
+  list-style: none;
+}
+
+.page-url {
+  text-overflow: ellipsis;
+  padding-bottom: 3px;
+}
+
+.button-group > button {
+  margin-right:3px;
+}
+
+#btn-download {
+  width:100%;
+}

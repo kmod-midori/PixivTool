@@ -1,8 +1,27 @@
-Vue = require 'Vue'
+React = require 'react'
 
-Vue.filter 'i18n',(input)->chrome.i18n.getMessage input
+Navbar = require './Navbar'
+Messages = require './Messages'
+PageSelect = require './PageSelect'
 
-module.exports = new Vue
-  el:'#popup'
-  data:
-    active:false
+{div} = React.DOM
+
+App = React.createClass
+  displayName:'App'
+  getInitialState:->
+    {
+      tabId:0
+      ready:false
+      messages:{}
+      tabData:{}
+    }
+  render: ->
+    div {},[
+      React.createElement(Navbar, {tabId: @state.tabId, ready: @state.ready})
+      (div {style:margin:'10px'},[ #content
+        React.createElement(Messages,{ready: @state.ready, messages:@state.tabData.messages || []})
+        (if @state.tabData.canDownload then React.createElement PageSelect,{pages:@state.tabData.pages})
+      ])
+    ]
+
+module.exports = React.render React.createElement(App,null),document.getElementById('popup')
