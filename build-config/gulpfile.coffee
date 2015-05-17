@@ -16,6 +16,8 @@ overlayPath = [
   './overlay/**/*'
 ]
 
+gulp.task 'default',['watch']
+
 gulp.task 'watch',['watch:assets', 'webpack:watch']
 
 gulp.task 'watch:assets',['manifest','overlay', 'i18n'] ,->
