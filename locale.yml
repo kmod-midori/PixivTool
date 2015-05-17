@@ -2,6 +2,13 @@ app_name:
   en: Pixiv Tool
   zh_CN: Pixiv Tool
 
+#Scope: Content Script
+
+#Site pixiv
+ugoira_zip:
+  en: Ugoira frame delay = $1ms
+  zh_CN: 动图帧率：$1ms/帧
+  
 #Scope Popup
 select_all:
   en: Select all
