@@ -25,14 +25,10 @@ module.exports =
         test: /\.yml$/
         loader: "json!yaml"
       }
-      {
-        test: /\.cson$/
-        loader: "cson"
-      }
     ]
 
   resolve:
-    extensions: ['', '.coffee', '.webpack.js', '.web.js', '.js', '.yml', '.coffee.md']
+    extensions: ['', '.coffee', '.webpack.js', '.web.js', '.js', '.yml']
     modulesDirectories: ['bower_components', 'node_modules']
     alias:
       shared:path.resolve './src/shared'
