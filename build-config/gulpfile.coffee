@@ -25,7 +25,7 @@ gulp.task 'watch:assets',['manifest','overlay', 'i18n'] ,->
   gulp.watch overlayPath,['overlay']
   gulp.watch './locale.yml',['i18n']
 
-gulp.task 'build',['manifest','html','i18n','webpack:production']
+gulp.task 'build',['manifest','overlay','i18n','webpack:production']
 
 gulp.task 'clean', (cb)->
   (require 'del') [dist],cb
