@@ -54,7 +54,7 @@ gulp.task 'webpack:watch', ->
 
 gulp.task 'webpack:production', ->
   conf = Object.create webpackConf
-  conf.plugins.push new webpack.optimize.DedupePlugin()
+  #conf.plugins.push new webpack.optimize.DedupePlugin()
   conf.plugins.push new webpack.optimize.UglifyJsPlugin()
   gulp.src 'src/opts/index.coffee'
     .pipe plugins.webpack(conf)
