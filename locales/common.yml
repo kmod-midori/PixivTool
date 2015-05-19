@@ -1,0 +1,19 @@
+app_name:
+  en: Pixiv Tool
+  zh_CN: Pixiv Tool
+  
+settings:
+  en: Settings
+  zh_CN: 设置
+  
+select_all:
+  en: Select all
+  zh_CN: 全选
+  
+deselect_all:
+  en: Deselect all
+  zh_CN: 取消选择
+  
+download:
+  en: Download
+  zh_CN: 下载

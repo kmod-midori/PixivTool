@@ -32,8 +32,7 @@ module.exports =
     modulesDirectories: ['bower_components', 'node_modules']
     alias:
       shared:path.resolve './src/shared'
-      fs:path.resolve './src/shared/shim/fs.coffee'
-      mkdirp:path.resolve './src/shared/shim/mkdirp.coffee'
+      target:path.resolve './src/targets'
   plugins:[
     new webpack.ResolverPlugin([
       new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])

@@ -1,2 +1,14 @@
+ /*jslint node:true*/ 
 require('coffee-script/register');
-require('./build-config/gulpfile.coffee');
+
+var minimist = require('minimist');
+
+global.options = minimist(process.argv.slice(2),{
+  string: ['target'],
+  default:{
+    target:'chrome'
+  }
+});
+
+var requireDir = require('require-dir');
+requireDir('./tasks');

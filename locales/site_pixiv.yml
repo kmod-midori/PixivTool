@@ -1,0 +1,3 @@
+ugoira_zip:
+  en: Ugoira frame delay = $DELAY$ms
+  zh_CN: 动图帧率：$DELAY$ms/帧

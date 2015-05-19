@@ -1,42 +1,11 @@
-app_name:
-  en: Pixiv Tool
-  zh_CN: Pixiv Tool
-
-#Scope: Content Script
-
-#Site pixiv
-ugoira_zip:
-  en: Ugoira frame delay = $1ms
-  zh_CN: 动图帧率：$1ms/帧
-  
-#Scope Popup
-select_all:
-  en: Select all
-  zh_CN: 全选
-  
-deselect_all:
-  en: Deselect all
-  zh_CN: 取消选择
-  
-download:
-  en: Download
-  zh_CN: 下载
-
 purge_meta_cache:
   en: Purge Metadata Cache
   zh_CN: 清除元数据缓存
-
-popup_inactive:
-  en: This page is not supported or not completely loaded.
-  zh_CN: 本页面不受支持或尚未加载完成。
 
 redownload:
   en: Download Again
   zh_CN: 重新下载
 
-settings:
-  en: Settings
-  zh_CN: 设置
 history_export:
   en: History Export
   zh_CN: 导出下载历史

@@ -7,7 +7,7 @@ module.exports = React.createClass {
     msgs = @props.messages
     
     if !@props.ready
-      msgs.push {color:'blue',text:i18n 'popup_inactive'}
+      msgs.push {color:'blue',text:i18n 'popup_not_supported'}
     
     div {className:'mb-1'}, msgs.map (msg)->
       div {className:"msg msg-#{msg.color}"},[msg.text]
