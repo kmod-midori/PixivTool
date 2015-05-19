@@ -32,7 +32,7 @@ exports.match = ->
   return true
 
 exports.run = (comm)->
-  require './marking'
+  (require './marking')(comm)
   
   if loc.pathname == '/member_illust.php'
     query = qs.parse(document.location.search[1..])

@@ -18,3 +18,11 @@ ul {
 #btn-download {
   width:100%;
 }
+
+.p-li:hover {
+  background-color:#f6f6f6;
+}
+
+.p-li > label {
+  max-width:100%;
+}

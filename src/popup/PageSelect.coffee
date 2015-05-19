@@ -20,12 +20,13 @@ PageItem = React.createClass {
       className:'font-10 no-overflow mt-1 font-gray page-url'
     }
     
-    (li {className:'b-b ml-0 pd-1'},[
-        (label {},[
+    (li {className:'b-b ml-0 p-li'},[
+        (label {className:'pd-1'},[
           checkbox
           (span {className:'ml-1'},["P#{@props.index + 1}"])
+          (div urlAttr,[@props.url])
         ])
-        (div urlAttr,[@props.url])
+        
     ])
 }
 
@@ -43,9 +44,9 @@ module.exports = React.createClass {
       
   startDownload:->
     pages = _.clone @props.pages
-    _.pullAt pages,@state.deselected
     console.log pages
     return if pages.length is 0
+    @deselectAll()
     
   selectAll:->
     @setState {deselected:[]}

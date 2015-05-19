@@ -1,3 +1,6 @@
+i18n = require 'shared/i18n'
+genFilename = require './pattern'
+
 getPages = (work)->
   #Single page
   if work.type is "illustration" and work.page_count is 1
@@ -14,11 +17,9 @@ getPages = (work)->
   
   #Ugoira
   if work.type is "ugoira"
-    delay = work.metadata.frames[0].delay_msec
     return [
       {
         url:work.metadata.zip_urls.ugoira600x600,
-        comment:(require 'shared/i18n')('ugoira_zip',[delay])
       }
     ]
 
@@ -72,11 +73,18 @@ module.exports = (id, comm)->
     
     meta = prepareMeta work
     
+    messages = if work.type is 'ugoira'
+      delay = work.metadata.frames[0].delay_msec
+      [{color:'blue', text:i18n 'ugoira_zip',[delay]}]
+    else
+      []
+    
     comm.update {
       canDownload:true
       uuid:"pxv+#{id}"
       pages
       meta
+      messages
     }
     
     
