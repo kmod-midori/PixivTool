@@ -30,25 +30,20 @@
 # 	return if changeInfo.status is 'loaded'
 # 	drawIcon(tabId,false)
 
-# ops = {
-# 	register:(req,sender,resp)->
-# 		drawIcon(sender.tab.id,true)
-# 		resp()
-# }
-
-# chrome.runtime.onMessage.addListener (req,sender,resp)->
-# 	return if not sender.tab?
-# 	ops[req.op].apply(null,arguments)
-#endregion
-
-require 'shared/debug'
+if DEBUG then require 'shared/debug'
 # Start Manager
 manager = require './TabManager'
 
 icon = require './IconService'
 popup = require './PopupService'
 #tabMeta = require './TabMetaService'
-historyStore = require './HistoryStore'
 
+target = require 'target'
 
+setup = ->
+  target.PageMod [
+    "*://www.pixiv.net/*"
+    "*://bcy.net/*"
+  ],['bundles/deps.js','bundles/content.js']
 
+setup()

@@ -13,5 +13,5 @@ class PopupService extends EventEmitter
 
 module.exports = service = new PopupService()
 
-rpc.addMethod 'tabStatus', rpc.targets.Popup, (param) ->
-  return manager.isConnected param.id
+#rpc.addMethod 'tabStatus', rpc.targets.Popup, (param) ->
+#  return manager.isConnected param.id
