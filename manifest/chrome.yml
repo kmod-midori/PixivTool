@@ -17,13 +17,13 @@ browser_action:
   default_popup: popup.html
   default_icon:
     38: icons/popup_inactive_38.png
-#content_scripts:
-#  - matches:
-#    - 'http://*.pixiv.net/*'
-#    js:
-#      - bundles/deps.js
-#      - bundles/content.js
-#    run_at: document_idle
+content_scripts:
+ - matches:
+   - 'http://*.pixiv.net/*'
+   js:
+     - bundles/deps.js
+     - bundles/content.js
+   run_at: document_idle
 background:
   page: background.html
 icons:

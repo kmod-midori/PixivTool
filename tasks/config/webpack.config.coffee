@@ -4,9 +4,9 @@ webpack = require 'webpack'
 module.exports =
   entry:
 #    options:'./src/opts/index.coffee'
-    content:'./src/content/entry.coffee'
-    background: './src/back/entry.coffee'
-    popup: './src/popup/entry.coffee'
+    content:'./src/content/index.js'
+#    background: './src/back/entry.coffee'
+#    popup: './src/popup/entry.coffee'
   output:
     path: path.resolve './dist'
     filename:'[name].js'
@@ -14,8 +14,13 @@ module.exports =
   module:
     loaders:[
       {
-        test: /\.coffee$/
-        loader: 'regenerator!coffee'
+        test: /\.jsx?$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: 'babel',
+        query: {
+          optional: ['runtime'],
+          stage: 0
+        }
       }
       {
         test: /\.css$/
@@ -28,11 +33,10 @@ module.exports =
     ]
 
   resolve:
-    extensions: ['', '.coffee', '.webpack.js', '.web.js', '.js', '.yml']
+    extensions: ['', '.js','.coffee', '.webpack.js', '.web.js', '.yml']
     modulesDirectories: ['bower_components', 'node_modules']
     alias:
-      shared:path.resolve './src/shared'
-      target:path.resolve './src/targets'
+      src: path.resolve './src'
   plugins:[
     new webpack.ResolverPlugin([
       new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
@@ -44,6 +48,8 @@ module.exports =
     ].join("\n"))
     new webpack.ProvidePlugin({
       _: 'lodash'
+      ctx: path.resolve './src/adapter/ctx.js'
+      log: path.resolve './src/common/logger.js'
       Promise:'bluebird'
     })
   ]
