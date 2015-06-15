@@ -12,7 +12,7 @@ export default class Site {
    * @return {boolean}
    */
   static match(){
-    throw new Error('This is abstract!');
+    return false;
   }
 
   /**

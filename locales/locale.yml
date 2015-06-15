@@ -1,6 +1,4 @@
-purge_meta_cache:
-  en: Purge Metadata Cache
-  zh_CN: 清除元数据缓存
+
 
 redownload:
   en: Download Again

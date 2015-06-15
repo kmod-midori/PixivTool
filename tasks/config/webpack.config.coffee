@@ -5,12 +5,12 @@ module.exports =
   entry:
 #    options:'./src/opts/index.coffee'
     content:'./src/content/index.js'
-#    background: './src/back/entry.coffee'
-#    popup: './src/popup/entry.coffee'
+    background: './src/back/index.js'
+    popup: './src/popup/index.js'
   output:
     path: path.resolve './dist'
     filename:'[name].js'
-    publicPath: '/bundles/'
+    publicPath: '/'
   module:
     loaders:[
       {
@@ -31,9 +31,18 @@ module.exports =
         loader: "json!yaml"
       }
     ]
-
+    preLoaders:[
+      {
+        test: /\.jsx?$/,
+        loader: "eslint-loader",
+        exclude: /(node_modules|bower_components)/
+      }
+    ]
+  eslint: {
+    failOnError: true
+  }
   resolve:
-    extensions: ['', '.js','.coffee', '.webpack.js', '.web.js', '.yml']
+    extensions: ['', '.jsx','.js', '.webpack.js', '.web.js', '.yml']
     modulesDirectories: ['bower_components', 'node_modules']
     alias:
       src: path.resolve './src'
@@ -41,7 +50,7 @@ module.exports =
     new webpack.ResolverPlugin([
       new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
     ])
-    new webpack.optimize.CommonsChunkPlugin("deps.js")
+    new webpack.optimize.CommonsChunkPlugin("deps","deps.js")
     new webpack.BannerPlugin([
       "(c) 2015 Midori Kochiya"
       "GPLv3"
@@ -51,5 +60,6 @@ module.exports =
       ctx: path.resolve './src/adapter/ctx.js'
       log: path.resolve './src/common/logger.js'
       Promise:'bluebird'
+      React: 'react'
     })
   ]
