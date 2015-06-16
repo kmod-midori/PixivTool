@@ -36,7 +36,13 @@ class Server extends IPCServer {
         sid = this.getSessionId(sender.tab.id);
       }
       this.handleRequest(req, sid, rep);
-      return false;
+      return true;
+    });
+  }
+
+  broadcast(name, data) {
+    this.ports.forEach(port=>{
+      port.postMessage({name, data});
     });
   }
 }
