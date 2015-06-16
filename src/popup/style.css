@@ -1,28 +1,35 @@
 body {
-  width:400px;
+  width: 400px;
 }
-
 ul {
   list-style: none;
 }
-
 .page-url {
   text-overflow: ellipsis;
   padding-bottom: 3px;
 }
-
 .button-group > button {
-  margin-right:3px;
+  margin-right: 3px;
 }
-
 #btn-download {
-  width:100%;
+  width: 100%;
 }
-
 .p-li:hover {
-  background-color:#f6f6f6;
+  background-color: #f6f6f6;
+}
+.p-li > label {
+  max-width: 100%;
+}
+#content {
+  margin: 10px;
+}
+.sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
-.p-li > label {
-  max-width:100%;
+.sticky > button {
+  margin: 0;
 }

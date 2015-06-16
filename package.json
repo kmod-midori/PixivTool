@@ -48,11 +48,14 @@
     "intl-messageformat": "^1.1.0",
     "jquery": "^2.1.4",
     "lodash": "^3.9.3",
+    "lru-cache": "^2.6.4",
     "mote": "^0.2.0",
     "msgpack5": "^2.2.0",
     "ramda": "^0.15.0",
     "react": "^0.13.3",
+    "react-sticky": "^2.3.0",
     "regenerator": "^0.8.27",
+    "string": "^3.3.0",
     "timezone": "0.0.41",
     "uuid": "^2.0.1"
   }
