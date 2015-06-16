@@ -10,7 +10,8 @@
     "_":false,
     "DEBUG":false,
     "chrome":false,
-    "React":false
+    "React":false,
+    "R":false
   },
   "rules":{
     "semi": 2,

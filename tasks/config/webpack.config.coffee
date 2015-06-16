@@ -60,6 +60,7 @@ module.exports =
       ctx: path.resolve './src/adapter/ctx.js'
       log: path.resolve './src/common/logger.js'
       Promise:'bluebird'
-      React: 'react'
+      React: 'react',
+      R: 'ramda'
     })
   ]

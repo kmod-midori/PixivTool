@@ -50,6 +50,7 @@
     "lodash": "^3.9.3",
     "mote": "^0.2.0",
     "msgpack5": "^2.2.0",
+    "ramda": "^0.15.0",
     "react": "^0.13.3",
     "regenerator": "^0.8.27",
     "timezone": "0.0.41",
