@@ -37,7 +37,6 @@ export class IPCServer extends EventEmitter {
    */
   getSessionId(tid) {
     var sid = null;
-
     this.tabs.forEach((v, k) => {
       if (v === tid) {
         sid = k;
@@ -62,18 +61,27 @@ export class IPCServer extends EventEmitter {
 
       return Promise.try(handler, [req.data, sid]);
     })
-    .catch((ret) => {
-      log.d(`Rejected request from ${sid} [${JSON.stringify(req)}] because ${ret}`);
-      rep({
-        status: 'rejected',
-        reason: ret
-      });
-    })
     .then((ret) => {
-      rep({
-        status: 'fulfilled',
-        result: ret
-      });
+      log.d(`Request from ${sid} [${JSON.stringify(req)}] => ${ret}`);
+      try {
+        rep({
+          status: 'fulfilled',
+          result: ret
+        });
+      } catch(e) {
+        log.d(); // Ignore them.
+      }
+    })
+    .catch((ret) => {
+      log.d(`Rejected request from ${sid} [${JSON.stringify(req)}] because ${ret.message}`);
+      try {
+        rep({
+          status: 'rejected',
+          reason: ret.message
+        });
+      } catch(e) {
+        log.d();
+      }
     });
 
   }
