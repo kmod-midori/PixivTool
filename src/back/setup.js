@@ -14,3 +14,10 @@ ctx.messaging.on('tabClosed', (sid, tid)=>{
 //////////////////////////
 require('./metaDataCache');
 require('./pageMetaCache');
+
+/////////////////////////
+// Essential popup API //
+/////////////////////////
+ctx.messaging.addHandler('get_current_session', ()=>{
+  return ctx.tabs.getCurrent().then(ctx.messaging.getSessionId.bind(ctx.messaging));
+});

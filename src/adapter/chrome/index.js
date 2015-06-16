@@ -10,7 +10,8 @@ var exp = {
     return msg.format(data);
   },
   messaging: require('./messaging'),
-  button: require('./button')
+  button: require('./button'),
+  tabs: require('./tabs')
 };
 
 module.exports = exp;
