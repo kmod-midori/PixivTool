@@ -1,8 +1,8 @@
 var sites = require('src/sites');
 
-var enabled = _.filter(sites, function (site) {
-  return site.match();
+sites.forEach(site=>{
+  if (site.matcher()) {
+    log.d(`Starting ${site.name}`);
+    site.content();
+  }
 });
-
-//Call run on all enabled sites.
-_.invoke(enabled, 'run');

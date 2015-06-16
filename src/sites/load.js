@@ -5,6 +5,11 @@ var dirs = fs.readdirSync(__dirname).filter(function (filename) {
   return fs.statSync(p).isDirectory();
 });
 
-console.log(dirs);
+var codeTmpl = fs.readFileSync(path.join(__dirname, 'siteTemplate.js'), 'utf8');
+module.exports = 'var sites = [];';
 
-module.exports = '';
+dirs.forEach(function (dir) {
+  module.exports += codeTmpl.replace(/SITE_NAME/g, JSON.stringify(dir));
+});
+
+module.exports += 'module.exports = sites;';
