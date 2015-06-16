@@ -8,3 +8,8 @@ ctx.messaging.on('tabSupported', (sid, tid)=>{
 ctx.messaging.on('tabClosed', (sid, tid)=>{
   ctx.button.setIcon('icons/default.png', tid);
 });
+
+//////////////////////////
+// Setup metadata cache //
+//////////////////////////
+require('./metaDataCache');
