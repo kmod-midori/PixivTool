@@ -13,3 +13,4 @@ ctx.messaging.on('tabClosed', (sid, tid)=>{
 // Setup metadata cache //
 //////////////////////////
 require('./metaDataCache');
+require('./pageMetaCache');
