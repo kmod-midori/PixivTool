@@ -1,4 +1,3 @@
- /*jslint node:true*/ 
 require('coffee-script/register');
 
 var minimist = require('minimist');
