@@ -1,6 +1,5 @@
 node_modules/
 dist/
-_locales/\
 o.json
 bower_components/
 build/
