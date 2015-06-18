@@ -16,7 +16,7 @@
     "tests"
   ],
   "dependencies": {
-    "FileSaver.js": "eligrey/FileSaver.js",
-    "Kimochi.css": "chengyuhui/Kimochi.css"
+    "Kimochi.css": "chengyuhui/Kimochi.css",
+    "file-saver.js": "~1.20150507.2"
   }
 }
