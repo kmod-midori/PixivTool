@@ -1,1 +1,0 @@
-target = require 'target'
