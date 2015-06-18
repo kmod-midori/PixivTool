@@ -20,7 +20,7 @@ gulp.task 'webpack:watch', ->
 
 gulp.task 'webpack:production', ->
   conf = Object.create webpackConf
-  conf.plugins.push new webpack.optimize.UglifyJsPlugin()
+  # conf.plugins.push new webpack.optimize.UglifyJsPlugin()
 
   conf.plugins.push new webpack.DefinePlugin {
     DEBUG: false
