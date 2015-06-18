@@ -41,8 +41,7 @@ var getMetaUgoira = (id)=>{
   });
 };
 
-module.exports = (id)=>{
-
+var run = (id, conf)=>{
   ctx.messaging.send('meta_cache_get', `pixiv${id}`).then(work=>{
     log.d('Cache hit');
     return work;
@@ -58,16 +57,38 @@ module.exports = (id)=>{
   }).then(parsed=>{
     var pageMeta = {
       work: parsed.meta,
+      id: `pixiv${id}`,
       pages: parsed.pages,
+      referer: document.location.toString(),
       copyright: null
     };
+    var FileNamer = require('src/common/FilenameGenerator');
+    var namer = new FileNamer(
+      R.assoc('template', conf.template, require('./filenameConfig'))
+    );
 
-    ctx.messaging.send('set_metadata', pageMeta, false);
     ctx.messaging.send('meta_cache_set', {
       key: `pixiv${id}`,
       value: parsed
     }, false);
 
+    pageMeta.pages = pageMeta.pages.map((p, i)=>{
+      var meta = R.clone(parsed.meta);
+
+      meta.id = id;
+      meta.pageCount = pageMeta.pages.length;
+
+      meta.page = i + 1;
+
+      p.filename = namer.render(meta);
+      return p;
+    });
+    ctx.messaging.send('set_metadata', pageMeta, false);
+
     log.d('META', pageMeta);
   });
+};
+
+module.exports = (id)=>{
+  require('./config')(false, run.bind(this, id));
 };
