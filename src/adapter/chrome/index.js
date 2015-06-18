@@ -12,6 +12,7 @@ var exp = {
   messaging: require('./messaging'),
   button: require('./button'),
   tabs: require('./tabs')
+  storage: require('./storage'),
 };
 
 module.exports = exp;

@@ -25,6 +25,7 @@ var PageItem = React.createClass({
           {`   P${this.props.index + 1}` + extStr}
         </span>
         <div className={urlClass}>{this.props.url}</div>
+        <div className={urlClass}>{this.props.filename}</div>
       </label>
     </li>;
   }
@@ -61,6 +62,19 @@ module.exports = React.createClass({
     // [1,2,3,....,pages.length - 1]
     this.setState({deselected: R.range(0, this.state.meta.pages.length)});
   },
+  startDownload: function () {
+    var pages = R.clone(this.state.meta.pages);
+    _.pullAt(pages, this.state.deselected);
+    ctx.messaging.send('start_download', {
+      pages,
+      ref: this.state.meta.referer
+    });
+    ctx.messaging.send('history_add', {
+      id: this.state.meta.id,
+      dat: this.state.meta.work
+    });
+    this.deselectAll();
+  },
   render: function () {
     var pages, dlCount;
     if (!this.state.meta) {
@@ -72,6 +86,7 @@ module.exports = React.createClass({
         index={index}
         url={page.url}
         extData={page.extData}
+        filename={page.filename}
         checked={!R.contains(index, this.state.deselected)}
         onChange={this.handleCheck.bind(this, index)}
         />;
@@ -82,7 +97,7 @@ module.exports = React.createClass({
     return <div>
       <div className="card-box pd-1">
         <Sticky stickyStyle={{}}>
-          <button className="button mt-1 button-green" id="btn-download">
+          <button className="button mt-1 button-green" id="btn-download" onClick={this.startDownload}>
             {ctx.m('common_download') + ` (${dlCount})`}
           </button>
         </Sticky>
