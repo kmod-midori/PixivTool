@@ -68,3 +68,11 @@ module.exports =
       R: 'ramda'
     })
   ]
+  node:
+    console: false
+    process: true
+    global: true
+    Buffer: true
+    __filename: "mock"
+    __dirname: "mock"
+    fs: 'empty'
