@@ -1,7 +1,7 @@
 node_modules/
 dist/
 _locales/\
-out.json
+o.json
 bower_components/
 build/
 .idea/
