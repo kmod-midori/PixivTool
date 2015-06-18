@@ -26,8 +26,8 @@ function getPages(work) {
 }
 
 function fixTime(t){
-  var tz = require('timezone');
-  return tz(t, 'Asia/Tokyo');
+  var moment = require('moment-timezone');
+  return Number(moment.tz(t, 'Asia/Tokyo'));
 }
 
 function cleanupMeta(work) {
