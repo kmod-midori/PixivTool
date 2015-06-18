@@ -3,6 +3,16 @@ var {
   EventEmitter
 } = require('events');
 
+function limitLen(str, len = 3000){
+  if (typeof str != 'string') { // Don't throw error if not a string
+    return str;
+  }
+  if (str.length > len) {
+    str = str.slice(0, len) + '...';
+  }
+  return str;
+}
+
 export class IPCServer extends EventEmitter {
   constructor() {
     super();
@@ -62,7 +72,7 @@ export class IPCServer extends EventEmitter {
       return Promise.try(handler, [req.data, sid]);
     })
     .then((ret) => {
-      log.d(`Request from ${sid} [${JSON.stringify(req)}] => ${ret}`);
+      log.d(`Request from ${sid} [${limitLen(JSON.stringify(req))}] => ${limitLen(ret)}`);
       try {
         rep({
           status: 'fulfilled',
@@ -73,7 +83,7 @@ export class IPCServer extends EventEmitter {
       }
     })
     .catch((ret) => {
-      log.d(`Rejected request from ${sid} [${JSON.stringify(req)}] because ${ret.message}`);
+      log.d(`Rejected request from ${sid} [${limitLen(JSON.stringify(req))}] because ${ret.message}`);
       try {
         rep({
           status: 'rejected',
