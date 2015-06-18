@@ -1,0 +1,46 @@
+ui:
+  en: User Interface
+  zh_CN: 界面
+
+statistics:
+  en: Statistics
+  zh_CN: 统计数据
+
+history_count:
+  en: "You have {count, plural, zero {no work} one {1 work} other {# works}} in database."
+  zh_CN: "当前数据库中{count, plural, =0 {没有} other {有 # 条}}作品数据。"
+
+space_used:
+  en: "Space used: {used, number} KB"
+  zh_CN: 已用空间：{used, number} KB
+
+save:
+  en: Save
+  zh_CN: 保存
+discard:
+  en: Discard
+  zh_CN: 撤销
+
+filename_tmpl:
+  en: File name template
+  zh_CN: 文件名模板
+
+description:
+  en: Description
+  zh_CN: 说明
+
+template:
+  en: Template
+  zh_CN: 模板
+
+invalid_var:
+  en: "{v} is not valid"
+  zh_CN: "{v} 不合法"
+
+illust_id:
+  en: Illustration ID
+  zh_CN: 作品ID
+
+illust_title:
+  en: Illustration title
+  zh_CN: 作品标题

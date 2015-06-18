@@ -10,19 +10,10 @@ history_export:
 history_import:
   en: History Import
   zh_CN: 导入下载历史
-ui:
-  en: User Interface
-  zh_CN: 界面
 
-save:
-  en: Save
-  zh_CN: 保存
-discard:
-  en: Discard
-  zh_CN: 撤销
-mark_downloaded_label:
-  en: "Mark downloaded images in search page, bookmark page, etc."
-  zh_CN: 在搜索结果页面、收藏页面、排行榜等处标记已下载作品
+
+
+
 settings_saved:
   en: Saved.
   zh_CN: 设置已保存。
@@ -35,9 +26,7 @@ filename_example_label:
 example_output:
   en: "Example output: "
   zh_CN: 示例输出：
-filename_tmpl_label:
-  en: File name template
-  zh_CN: 文件名模板
+
 avail_tmpl_tag:
   en: Available Template Tags
   zh_CN: 可用模板标签
@@ -62,16 +51,9 @@ has_error:
 required:
   en: This field is required.
   zh_CN: 此项目必填。
-done:
-  en: Done.
-  zh_CN: 已完成。
 
-illust_id:
-  en: Illustration ID
-  zh_CN: 作品ID
-illust_title:
-  en: Illustration Title
-  zh_CN: 作品标题
+
+
 illust_tags:
   en: "Illustration Tags, put your delimiter between [ and ]. Use {{tags[ ]|x}}to limit the length of every tag."
   zh_CN: "作品的标签，请在 [ 和 ] 之间输入分隔符，默认为英文逗号。 可通过使用{{tags[ ]|x}}来限制输出的每个标签的长度不超过x（长度超出的标签将被过滤）。"

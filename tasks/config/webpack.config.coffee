@@ -3,7 +3,7 @@ webpack = require 'webpack'
 
 module.exports =
   entry:
-#    options:'./src/opts/index.coffee'
+    options:'./src/options/index.js'
     content:'./src/content/index.js'
     background: './src/back/index.js'
     popup: './src/popup/index.js'
@@ -25,6 +25,10 @@ module.exports =
       {
         test: /\.css$/
         loader: 'style!css'
+      }
+      {
+        test: /\.json$/
+        loader: 'json'
       }
       {
         test: /\.yml$/

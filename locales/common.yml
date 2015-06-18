@@ -1,19 +1,35 @@
 app_name:
   en: Pixiv Tool
   zh_CN: Pixiv Tool
-  
+
 settings:
   en: Settings
   zh_CN: 设置
-  
+
 select_all:
   en: Select all
   zh_CN: 全选
-  
+
 deselect_all:
   en: Deselect all
   zh_CN: 取消选择
-  
+
 download:
   en: Download
   zh_CN: 下载
+
+welcome:
+  en: Welcome to Pixiv Tool!
+  zh_CN: 欢迎来到Pixiv Tool
+
+mark_downloaded:
+  en: "Mark downloaded images in search page, bookmark page, etc."
+  zh_CN: 在搜索结果页面、收藏页面、排行榜等处标记已下载作品
+
+mark_color:
+  en: Background color of marked images.
+  zh_CN: 标记背景颜色
+
+done:
+  en: Done.
+  zh_CN: 已完成。

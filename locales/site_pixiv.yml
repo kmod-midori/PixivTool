@@ -1,3 +1,18 @@
+name:
+  en: Pixiv
+  zh_CN: Pixiv
 ugoira_delay:
   en: Ugoira freq = {delay}ms/frame
   zh_CN: 动图频率：{delay}ms/帧
+
+illust_id:
+  en: Illustration ID
+  zh_CN: 作品ID
+
+illust_title:
+  en: Illustration Title
+  zh_CN: 作品标题
+
+illust_tags:
+  en: Illustration tags, separated by whitespace. Use {{tags_n}} to remove tags that are longer than n.
+  zh_CN: 作品标签，以空格分隔。使用 {{tags_n}} 可以去除长度大于n的标签。
