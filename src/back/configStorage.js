@@ -1,27 +1,16 @@
-var db = require('./storage');
+var db = ctx.storage.db('config');
 
-db.loaded.then(function () {
-  var col = db.getCollection('config', {
-    indices: ['ns']
-  });
-
-  ctx.messaging.addHandler('config_get', ns=>{
-    var row = col.find({ns})[0] || {};
-    return row.data;
-  });
-  ctx.messaging.addHandler('config_set', req=>{
-    var doc = col.find({ns: req.ns})[0];
-    if (doc) {
-      // Merge
-      doc.data = req.data;
-      col.update(doc);
-    } else {
-      doc = {
-        ns: req.ns,
-        data: req.data
-      };
-      col.insert(doc);
+ctx.messaging.addHandler('config_get', ns=>{
+  return db.get(ns).catch(err=>{
+    if (err.notFound) {
+      return {};
     }
-    ctx.messaging.broadcast('configUpdated:' + req.ns);
+    throw err;
+  });
+});
+
+ctx.messaging.addHandler('config_set', req=>{
+  return db.put(req.ns, req.data).then(function () {
+    ctx.messaging.broadcast('configUpdated:' + req.ns, req.data);
   });
 });

@@ -49,7 +49,7 @@ module.exports = React.createClass({
           return;
         }
         if (confirm('Replace ?')) {
-          ctx.messaging.send('storage_replace', decode(R.drop(HASH_LEN, text))).then(function () {
+          ctx.messaging.send('history_replace', decode(R.drop(HASH_LEN, text))).then(function () {
             alert(ctx.m('common_done'));
           });
         }
@@ -62,7 +62,7 @@ module.exports = React.createClass({
   },
   export: function(){
     var {saveAs} = require('file-saver.js');
-    ctx.messaging.send('storage_serialize').then(encode).then(text=>{
+    ctx.messaging.send('history_serialize').then(encode).then(text=>{
       var hash = digest(text);
       log.d(text.length);
       text = hash + text; // prepend

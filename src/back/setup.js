@@ -54,27 +54,6 @@ ctx.messaging.addHandler('storage_get_space', () => {
 });
 
 
-///////////////////
-// Import/Export //
-///////////////////
-ctx.messaging.addHandler('storage_serialize', () => {
-  var db = require('./storage');
-  return db.loaded.then(function () {
-    return db.serialize();
-  });
-});
-
-ctx.messaging.addHandler('storage_replace', text => {
-  return new Promise(resolve=>{
-    ctx.storage.lokiAdapter.saveDatabase('loki.db', text, function () {
-      window.dbReplaced = true;
-      resolve();
-      document.location.reload();
-    });
-  });
-});
-
-
 ////////////////////
 // Network Helper //
 ////////////////////
