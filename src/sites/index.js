@@ -1,3 +1,3 @@
-log.d('Loading sites...');
-require('string').extendPrototype();
-module.exports = require('val!./load');
+require('val!./load');
+
+module.exports = require('./SiteRegistry');

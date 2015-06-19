@@ -1,8 +1,8 @@
-var sites = require('src/sites');
+var sitesReg = require('src/sites');
 
-sites.forEach(site=>{
-  if (site.matcher(document.location)) {
-    log.d(`Starting ${site.name}`);
-    site.content();
-  }
+log.d(sitesReg);
+
+sitesReg.ready.then(function () {
+  log.d('Sites ready');
+  sitesReg.filterAndRun(document.location);
 });

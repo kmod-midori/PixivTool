@@ -23,11 +23,14 @@ module.exports = React.createClass({
     log.d('NEW', R.assoc(name, value, this.state.data));
   },
   componentDidMount: function() {
-    require('src/common/ConfigObserver')(this.props.ns, this.props.defaults, false, data=>{
-      this.setState({
-        data,
-        loaded: true
+    ctx.messaging.send('config_get', this.props.namespace).then(c => {
+      var config = {};
+
+      this.props.fields.map(field => { // apply default values
+        config[field.name] = R.defaultTo(field.default, c[field.name]);
       });
+
+      this.setState({data: config, loaded: true});
     });
   },
   save: function () {
@@ -35,14 +38,14 @@ module.exports = React.createClass({
       return;
     }
     ctx.messaging.send('config_set', {
-      ns: this.props.ns,
+      ns: this.props.namespace,
       data: this.state.data
     }).then(()=>{
       this.setState({dirty: false});
     });
   },
   isValid: function () {
-    var refs = R.pluck('name', R.filter(R.where({type: R.equals('template')}), this.props.fields));
+    var refs = R.pluck('name', R.filter(R.whereEq({type: 'template'}), this.props.fields));
     var v = refs.map(ref=>{
       ref = this.refs[`template-${ref}`];
       return !!ref.state.error;
@@ -58,7 +61,7 @@ module.exports = React.createClass({
             {ctx.m(f.msgid)}
           </label>;
         case 'template':
-          return <Template key={f.name} config={f.config}
+          return <Template key={f.name} config={this.props.templateConfig}
             msgid={f.msgid}
             value={this.state.data[f.name]}
             onChange={R.partial(this.handleChange, f.name)}
