@@ -1,5 +1,4 @@
-module.exports = function() {
-  var loc = document.location;
+module.exports = function(loc) {
   var pathBlacklist = [
     'upload.php',
     'event.php',

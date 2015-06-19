@@ -7,6 +7,7 @@ module.exports =
     content:'./src/content/index.js'
     background: './src/back/index.js'
     popup: './src/popup/index.js'
+    tests: 'mocha!./tests/index.js'
   output:
     path: path.resolve './dist'
     filename:'[name].js'
