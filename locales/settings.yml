@@ -14,6 +14,28 @@ space_used:
   en: "Space used: {used, number} KB"
   zh_CN: 已用空间：{used, number} KB
 
+# Navbar
+nav_home:
+  en: Home
+  zh_CN: 主页
+
+nav_sites:
+  en: Site
+  zh_CN: 分站点设置
+
+nav_export:
+  en: Import/Export
+  zh_CN: 导入/导出
+
+# Import / Export
+export_button:
+  en: Export
+  zh_CN: 导出
+
+import_area:
+  en: Drop DB file in to white area to import
+  zh_CN: 将 DB 文件拖入白色区域即可导入。
+
 save:
   en: Save
   zh_CN: 保存

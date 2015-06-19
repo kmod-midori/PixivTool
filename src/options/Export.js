@@ -73,9 +73,9 @@ module.exports = React.createClass({
     return <div>
       <div className="card-box pd-2 relative" onDrop={this.handleDrop} onDragOver={pd}>
         {!this.state.processing ? [] : <div className="card-box loading-overlay align-center"></div>}
-        Drop JSON file here to import.
+        {ctx.m('settings_import_area')}
       </div>
-      <button className="button w-100p mt-1" onClick={this.export}>Export</button>
+      <button className="button w-100p mt-1" onClick={this.export}>{ctx.m('settings_export_button')}</button>
     </div>;
   }
 });

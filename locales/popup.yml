@@ -5,3 +5,7 @@ not_supported:
 purge_cache:
   en: Purge Metadata Cache
   zh_CN: 清除元数据缓存
+
+download_unavail:
+  en: Page is still loading or nothing to download.
+  zh_CN: 此页面正在加载或无可下载资源

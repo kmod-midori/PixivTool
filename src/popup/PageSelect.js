@@ -78,7 +78,7 @@ module.exports = React.createClass({
   render: function () {
     var pages, dlCount;
     if (!this.state.meta) {
-      return <div>Loading...</div>;
+      return <div>{ctx.m('popup_download_unavail')}</div>;
     }
 
     pages = this.state.meta.pages.map((page, index)=>{
