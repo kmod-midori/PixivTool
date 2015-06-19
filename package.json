@@ -45,6 +45,7 @@
     "babel-runtime": "^5.5.8",
     "bluebird": "^2.9.27",
     "bowser": "^0.7.2",
+    "eslint": "^0.21.0",
     "intl-messageformat": "^1.1.0",
     "jquery": "^2.1.4",
     "json-loader": "^0.5.2",
