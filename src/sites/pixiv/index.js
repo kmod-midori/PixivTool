@@ -7,21 +7,13 @@ module.exports = {
   name: 'site_pixiv_name',
   namespace: 'pixiv',
   config: [{
-    name: 'markingEnabled',
-    msgid: 'common_mark_downloaded',
-    type: 'checkbox',
-    default: true
-  }, {
-    name: 'color',
-    msgid: 'common_mark_color',
-    type: 'color',
-    default: '#FFA07A'
-  }, {
     name: 'template',
     msgid: 'settings_filename_tmpl',
     type: 'template',
     default: '{{user.name}} - {{title}} ({{id}}@{{user.id}})[{{tags_9}}]?[ {{page}}P]?'
   }],
+  marking: true,
+  defaultMarkColor: '#FFA07A',
   template: require('./template'),
   enableCondition: [
     hostEquals('www.pixiv.net'),
@@ -53,10 +45,6 @@ module.exports = {
       ])
     })
   ],
-  prepareDownload: function (context) {
-    var prep = require('./prepareDownload').bind(this, context);
-    context.getConfig().then(prep);
-    context.on('configUpdated', prep);
-  },
-  run: require('./mark')
+  downloadCallbacks: require('./downloadCallbacks'),
+  markingCallbacks: require('./markingCallbacks')
 };
