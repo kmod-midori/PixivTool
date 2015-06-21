@@ -20,6 +20,7 @@ browser_action:
 content_scripts:
  - matches:
    - 'http://*.pixiv.net/*'
+   - 'http://cosp.jp/*'
    js:
      - deps.js
      - content.js
