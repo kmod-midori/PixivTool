@@ -56,7 +56,7 @@ module.exports = React.createClass({
     var fields = this.props.fields.map(f=>{
       switch (f.type) {
         case 'checkbox':
-          return <label key={f.name}>
+          return <label key={f.name} className="mt-1">
             <input type={f.type} checked={this.state.data[f.name]} onChange={R.partial(this.handleChange, f.name)}/>
             {ctx.m(f.msgid)}
           </label>;
