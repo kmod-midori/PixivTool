@@ -1,3 +1,5 @@
+var x = ctx;
+
 require('val!./load');
 
-module.exports = require('./SiteRegistry');
+module.exports = require('./classes/SiteRegistry');

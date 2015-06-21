@@ -64,15 +64,10 @@ module.exports = React.createClass({
   },
   startDownload: function () {
     var pages = R.clone(this.state.meta.pages);
+    var helper = require('src/common/DownloadHelper');
     _.pullAt(pages, this.state.deselected);
-    ctx.messaging.send('start_download', {
-      pages,
-      ref: this.state.meta.referer
-    });
-    ctx.messaging.send('history_add', {
-      id: this.state.meta.id,
-      dat: this.state.meta.work
-    });
+    helper.startDownload(pages, this.state.meta.referer);
+    helper.addHistory(this.state.meta.id, this.state.meta.work);
     this.deselectAll();
   },
   render: function () {
