@@ -17,14 +17,24 @@ function decode(text) {
   return buf.toString('utf8');
 }
 
+function readFile(file) {
+  return new Promise(function(resolve) {
+    var reader = new FileReader();
+
+    reader.onload = resolve;
+
+    reader.readAsText(file);
+  }).get('target').get('result');
+}
+
 module.exports = React.createClass({
   getInitialState: function() {
     return {
       processing: false
     };
   },
-  handleDrop: function (e) {
-    var file, reader;
+  handleDrop: async function(e) { // eslint-disable-line complexity
+    var file, text;
     e.stopPropagation();
     e.preventDefault();
 
@@ -33,49 +43,63 @@ module.exports = React.createClass({
     }
 
     file = e.dataTransfer.files[0];
-    reader = new FileReader();
-    if(!file.name.match(/\.db$/)){
+
+    if (!file.name.match(/\.db$/)) {
       return;
     }
-    reader.onload = evt => {
-      (function() {
-        var HASH_LEN = 40;
-        var text = evt.target.result;
-        var hashOrig = text.slice(0, HASH_LEN);
-        var hashRest = digest(R.drop(HASH_LEN, text));
-        /* eslint-disable no-alert */
-        if (hashOrig !== hashRest) {
-          alert('Hash mismatch!');
-          return;
-        }
-        if (confirm('Replace ?')) {
-          ctx.messaging.send('history_replace', decode(R.drop(HASH_LEN, text))).then(function () {
-            alert(ctx.m('common_done'));
-          });
-        }
-        /* eslint-enable no-alert */
-      }());
-      this.setState({processing: false});
-    };
-    this.setState({processing: true});
-    reader.readAsText(file);
-  },
-  export: function(){
-    var {saveAs} = require('file-saver.js');
-    ctx.messaging.send('history_serialize').then(encode).then(text=>{
-      var hash = digest(text);
-      log.d(text.length);
-      text = hash + text; // prepend
-      saveAs(new Blob([text], {type: 'text/plain;charset=utf-8'}), 'export.db');
+
+    this.setState({
+      processing: true
     });
+
+    text = await readFile(file);
+
+    //////////////////////////
+    // Process file content //
+    //////////////////////////
+    /* eslint-disable no-alert */
+    try {
+      const HASH_LEN = 40;
+
+      const hashOrig = text.slice(0, HASH_LEN);
+      const hashRest = digest(R.drop(HASH_LEN, text));
+
+      const client = await ctx.dnode.getClient().ready;
+
+      if (hashOrig !== hashRest) {
+        throw new Error(ctx.m('settings_hash_mismatch'));
+      }
+
+      if (confirm('Replace ?')) {
+        await client.historyRestoreAsync(text);
+        alert(ctx.m('common_done'));
+      }
+    } catch (e) {
+      alert(e.message);
+    } finally {
+
+      this.setState({
+        processing: false
+      });
+
+    }
+    /* eslint-enable no-alert */
+
   },
-  render: function () {
-    return <div>
-      <div className="card-box pd-2 relative" onDrop={this.handleDrop} onDragOver={pd}>
+  export: async function() {
+    var {saveAs} = require('file-saver.js');
+    var client = await ctx.dnode.getClient().ready;
+    var text = await client.historyBackupAsync().then(encode);
+    var hash = digest(text);
+    text = hash + text;
+    saveAs(new Blob([text], {type: 'text/plain;charset=utf-8'}), 'export.db');
+  },
+  render: function() {
+    return <div >
+      <div className = "card-box pd-2 relative" onDrop={this.handleDrop} onDragOver = {pd}>
         {!this.state.processing ? [] : <div className="card-box loading-overlay align-center"></div>}
         {ctx.m('settings_import_area')}
       </div>
-      <button className="button w-100p mt-1" onClick={this.export}>{ctx.m('settings_export_button')}</button>
-    </div>;
+      <button className="button w-100p mt-1" onClick={this.export}>{ctx.m('settings_export_button')}</button></div>;
   }
 });

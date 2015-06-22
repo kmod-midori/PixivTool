@@ -1,16 +1,20 @@
 var db = ctx.storage.db('config');
 
-ctx.messaging.addHandler('config_get', ns=>{
-  return db.get(ns).catch(err=>{
+exports.get = function (ns) {
+  return db.get(ns).catch(function (err) {
     if (err.notFound) {
       return {};
     }
     throw err;
   });
-});
+};
 
-ctx.messaging.addHandler('config_set', req=>{
-  return db.put(req.ns, req.data).then(function () {
-    ctx.messaging.broadcast('configUpdated:' + req.ns, req.data);
+exports.set = function (ns, config) {
+  return db.put(ns, config);
+};
+
+ctx.dnode.getServer.then(function (server) {
+  db.on('put', function (key, value) {
+    server.broadcast('configUpdated:' + key, value);
   });
 });

@@ -1,15 +1,17 @@
 var cache = new Map();
 
-ctx.messaging.addHandler('set_metadata', (meta, sid)=>{
-  log.d(`Set meta ${sid} => ${meta}`);
-  cache.set(sid, meta);
-});
+exports.set = function (data, sid) {
+  debug('Page Meta:set')(sid, data);
+  cache.set(sid, data);
+};
 
-ctx.messaging.addHandler('get_metadata', sid=>{
+exports.get = function (sid) {
   return cache.get(sid);
-});
+};
 
-ctx.messaging.on('tabClosed', sid=>{
-  log.d(`Del meta ${sid}`);
-  cache.delete(sid);
+ctx.dnode.getServer.then(function (server) {
+  server.on('closed', function (sid) {
+    debug('Page Meta:delete')(sid);
+    cache.delete(sid);
+  });
 });

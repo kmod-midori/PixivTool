@@ -20,10 +20,10 @@ module.exports = React.createClass({
       data: R.assoc(name, value, this.state.data),
       dirty: true
     });
-    log.d('NEW', R.assoc(name, value, this.state.data));
+    debug('Site Config')(this.props.namespace, this.state.data);
   },
   componentDidMount: function() {
-    ctx.messaging.send('config_get', this.props.namespace).then(c => {
+    ctx.dnode.getClient().ready.call('configGetAsync', this.props.namespace).then(c => {
       var config = {};
 
       this.props.fields.map(field => { // apply default values
@@ -37,12 +37,9 @@ module.exports = React.createClass({
     if (!this.state.dirty || !this.isValid()) {
       return;
     }
-    ctx.messaging.send('config_set', {
-      ns: this.props.namespace,
-      data: this.state.data
-    }).then(()=>{
+    ctx.dnode.getClient().ready.call('configSetAsync', this.props.namespace, this.state.data).then(function () {
       this.setState({dirty: false});
-    });
+    }.bind(this));
   },
   isValid: function () {
     var refs = R.pluck('name', R.filter(R.whereEq({type: 'template'}), this.props.fields));

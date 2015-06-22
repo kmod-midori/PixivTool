@@ -6,11 +6,11 @@ export default class SiteContext extends EventEmitter {
     super();
     this.prefix = site.namespace;
     this.idCache = new Set();
-    ctx.messaging.on('configUpdated:' + this.prefix, newConf=>{
+    ctx.dnode.getClient().on('configUpdated:' + this.prefix, newConf=>{
       this.emit('configUpdated', newConf);
     });
 
-    ctx.messaging.on('historyUpdated', ()=>{
+    ctx.dnode.getClient().on('historyUpdated', ()=>{
       this.emit('historyUpdated');
     });
 
@@ -34,7 +34,7 @@ export default class SiteContext extends EventEmitter {
     if (this.idCache.has(id)) {
       return Promise.resolve(true);
     }
-    return ctx.messaging.send('history_id_exist', this.prefix + id).tap(exists=>{
+    return ctx.dnode.getClient().ready.call('historyExistsAsync', this.prefix + id).tap(exists=>{
       if (exists) {
         this.idCache.add(id);
       }
@@ -42,19 +42,19 @@ export default class SiteContext extends EventEmitter {
   }
 
   getConfig(){
-    return ctx.messaging.send('config_get', this.prefix).then(conf=>{
+    return ctx.dnode.getClient().ready.call('configGetAsync', this.prefix).then(conf => {
       return R.merge(this.defaults, conf || {});
     });
   }
 
   getCached(id){
-    return ctx.messaging.send('meta_cache_get', this.prefix + id).tap(function (cached) {
-      log.d('Cache Hit:', cached);
+    return ctx.dnode.getClient().ready.call('getWorkCacheAsync', this.prefix + id).tap(function (cached) {
+      debug('Work Cache')('Hit', cached);
     });
   }
 
   setCache(id, data){
-    return ctx.messaging.send('meta_cache_set', {key: this.prefix + id, value: data});
+    return ctx.dnode.getClient().ready.call('setWorkCacheAsync', this.prefix + id, data);
   }
 
   getFilename(template, data) {
@@ -70,12 +70,12 @@ export default class SiteContext extends EventEmitter {
   postMeta(meta) {
     meta.id = this.prefix + meta.id;
     this.pageMeta = meta;
-    ctx.messaging.send('set_metadata', meta, false);
+    ctx.dnode.getClient().ready.call('setPageCacheAsync', meta);
   }
 
   startDownload(){
     var helper = require('src/common/DownloadHelper');
-    helper.startDownload(this.pageMeta.pages, this.pageMeta.referer);
+    helper.startDownload();
     helper.addHistory(this.pageMeta.id, this.pageMeta.work);
   }
 

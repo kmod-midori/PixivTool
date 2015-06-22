@@ -10,7 +10,7 @@ var App = React.createClass({
     };
   },
   componentDidMount: function(){
-    ctx.messaging.send('get_current_session').then(sid=>{
+    ctx.dnode.getClient().ready.call('getCurrentSessionAsync').then(sid=>{
       this.setState({
         session: sid,
         status: sid ? 'active' : 'unsupported'

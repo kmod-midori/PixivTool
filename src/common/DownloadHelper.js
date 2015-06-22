@@ -1,13 +1,12 @@
-exports.startDownload = function (pages, referer) {
-  return ctx.messaging.send('start_download', {
-    pages,
-    ref: referer
-  });
+exports.startDownload = function (selected, sid) {
+  if (sid) {
+    return ctx.dnode.getClient().ready.call('startDownloadAsync', selected, sid);
+  } else {
+    return ctx.dnode.getClient().ready.call('startDownloadAsync', selected);
+  }
+
 };
 
 exports.addHistory = function (id, dat) {
-  return ctx.messaging.send('history_add', {
-    id,
-    dat
-  });
+  return ctx.dnode.getClient().ready.call('historyAddAsync', id, dat);
 };

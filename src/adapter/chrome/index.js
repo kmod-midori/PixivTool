@@ -9,11 +9,11 @@ var exp = {
     msg = new IntlMessageFormat(msg, chrome.i18n.getUILanguage());
     return msg.format(data);
   },
-  messaging: require('./messaging'),
   button: require('./button'),
   tabs: require('./tabs'),
   storage: require('./storage'),
-  download: require('./download')
+  download: require('./download'),
+  dnode: require('./dnode')
 };
 
 module.exports = exp;

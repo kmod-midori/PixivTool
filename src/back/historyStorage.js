@@ -1,27 +1,29 @@
 var db = ctx.storage.db('history');
 var moment = require('moment-timezone');
 
-ctx.messaging.addHandler('history_get_count', ()=>{
+exports.count = function () {
   return db.db.container._keys.length;
-});
+};
 
-ctx.messaging.addHandler('history_id_exist', (id)=>{
+exports.exists = function (id) {
   return db.get(id).then(R.T).catch(R.F);
-});
+};
 
-ctx.messaging.addHandler('history_add', doc=>{
-  var id = doc.id;
-  delete doc.id;
+exports.set = function (id, doc) {
   doc.lastSave = Number(moment());
-  return db.put(id, doc).then(function () {
-    ctx.messaging.broadcast('historyUpdated');
-  });
+  return db.put(id, doc);
+};
+
+ctx.dnode.getServer.then(function (server) {
+  db.on('put', _.throttle(function () {
+    server.broadcast('historyUpdated');
+  }, 1500));
 });
 
 ///////////////////
 // Import/Export //
 ///////////////////
-ctx.messaging.addHandler('history_serialize', function () {
+exports.serialize = function () {
   return new Promise((resolve, reject)=>{
     var ret = [];
     db.createReadStream()
@@ -37,7 +39,7 @@ ctx.messaging.addHandler('history_serialize', function () {
       resolve(JSON.stringify(ret));
     });
   });
-});
+};
 
 function deleteAll(){
   return new Promise((res, rej)=>{
@@ -56,7 +58,7 @@ function deleteAll(){
   });
 }
 
-ctx.messaging.addHandler('history_replace', function(str){
+exports.replace = function (str) {
   var ops = JSON.parse(str);
   return deleteAll().then(db.batch.bind(db, ops));
-});
+};

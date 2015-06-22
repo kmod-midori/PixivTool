@@ -5,9 +5,11 @@ module.exports = React.createClass({
       historyCount: 0
     };
   },
-  componentDidMount: function() {
-    Promise.join(ctx.messaging.send('storage_get_space'), ctx.messaging.send('history_get_count'), (spaceUsed, historyCount)=>{
-      this.setState({spaceUsed, historyCount});
+  componentDidMount: async function() {
+    var client = await ctx.dnode.getClient().ready;
+    this.setState({
+      spaceUsed: await client.getUsedStroageAsync(),
+      historyCount: await client.historyCountAsync()
     });
   },
   render: function () {

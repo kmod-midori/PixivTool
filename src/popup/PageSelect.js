@@ -34,39 +34,40 @@ var PageItem = React.createClass({
 module.exports = React.createClass({
   getInitialState: ()=>{
     return {
-      deselected: [],
+      selected: [],
       meta: null
     };
   },
   componentDidMount: function(){
-    ctx.messaging.send('get_metadata', this.props.session).then(meta=>{
-      this.setState({meta});
+    ctx.dnode.getClient().ready.call('getPageCacheAsync', this.props.session).then(meta=>{
+      this.setState({
+        meta,
+        selected: R.range(0, meta.pages.length)
+      });
     });
   },
   handleCheck: function (index, e) {
     if (e.target.checked) {
       this.setState({
-        deselected: R.filter(R.complement(R.equals(index)), this.state.deselected) // Remove
+        selected: R.insert(0, index)(this.state.selected) // Insert
       });
     } else {
       this.setState({
-        deselected: R.insert(0, index)(this.state.deselected) // Insert
+        selected: R.filter(R.complement(R.equals(index)), this.state.selected) // Remove
       });
     }
   },
   selectAll: function () {
-    this.setState({deselected: []});
+    // Set all to selected
+    // [1,2,3,....,pages.length - 1]
+    this.setState({selected: R.range(0, this.state.meta.pages.length)});
   },
   deselectAll: function () {
-    // Set all to deselected
-    // [1,2,3,....,pages.length - 1]
-    this.setState({deselected: R.range(0, this.state.meta.pages.length)});
+    this.setState({selected: []});
   },
   startDownload: function () {
-    var pages = R.clone(this.state.meta.pages);
     var helper = require('src/common/DownloadHelper');
-    _.pullAt(pages, this.state.deselected);
-    helper.startDownload(pages, this.state.meta.referer);
+    helper.startDownload(this.state.selected, this.props.session);
     helper.addHistory(this.state.meta.id, this.state.meta.work);
     this.deselectAll();
   },
@@ -82,12 +83,12 @@ module.exports = React.createClass({
         url={page.url}
         extData={page.extData}
         filename={page.filename}
-        checked={!R.contains(index, this.state.deselected)}
+        checked={R.contains(index, this.state.selected)}
         onChange={this.handleCheck.bind(this, index)}
         />;
     });
 
-    dlCount = this.state.meta.pages.length - this.state.deselected.length;
+    dlCount = this.state.selected.length;
 
     return <div>
       <div className="card-box pd-1">
