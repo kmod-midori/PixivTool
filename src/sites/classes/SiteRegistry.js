@@ -5,41 +5,44 @@ from 'events';
 
 import SiteContext from './SiteContext';
 
-function prepareDownload(site, context) {
+async function prepareDownload(site, context) {
   var callbacks = site.downloadCallbacks;
-  return Promise.try(callbacks.getID, context)
-    .then(function(id) {
-      return context.getCached(id).catch(function() {
-        log.d('Cache Miss');
-        return Promise.method(callbacks.getRawMetadata)(id, context).tap(function(data) {
-          context.setCache(id, data);
-        });
-      });
-    })
-    .then(function(rawMeta) {
-      var args = [];
+  var id = await Promise.try(callbacks.getID, context);
+  var rawMeta, pipeArgs, parsedMeta;
+  try {
+    rawMeta = await context.getCached(id);
+    debug('WorkCache')('Hit', rawMeta);
+  } catch(e) {
+    debug('WorkCache')('Miss');
+    rawMeta = await Promise.try(callbacks.getRawMetadata, [id, context]);
+    context.setCache(id, rawMeta);
+  }
 
-      if (typeof callbacks.metaTransform == 'function') {
-        args = [callbacks.metaTransform];
-      } else if (Array.isArray(callbacks.metaTransform)) {
-        args = callbacks.metaTransform;
-      } else {
-        throw new TypeError('metaTransform should be Array or Function');
-      }
+  pipeArgs = (function() {
+    var args = [];
 
-      return [
-        Promise.resolve(context), //context
-        R.pipe.apply(this, args)(rawMeta), //parsed
-        Promise.resolve(rawMeta) // raw
-      ];
-    })
-    .spread(callbacks.parsePages)
-    .tap(function (meta) {
-      if (meta.pages.length === 1) {
-        context.showButton();
-      }
-    })
-    .then(context.postMeta.bind(context));
+    if (typeof callbacks.metaTransform == 'function') {
+      args = [callbacks.metaTransform];
+    } else if (Array.isArray(callbacks.metaTransform)) {
+      args = callbacks.metaTransform;
+    } else {
+      throw new TypeError('metaTransform should be Array or Function');
+    }
+
+    return args;
+  }());
+
+  parsedMeta = await Promise.try(callbacks.parsePages, [
+    context,
+    R.pipe.apply(this, pipeArgs)(rawMeta),
+    rawMeta
+  ]);
+
+  if (parsedMeta.pages.length === 1) {
+    context.showButton();
+  }
+
+  context.postMeta(parsedMeta);
 }
 
 function initMarking(site, context){
@@ -124,9 +127,11 @@ class SiteRegistry extends EventEmitter {
       var context;
       if (R.allPass(site.enableCondition, location)) {
         context = new SiteContext(site);
+
         if (R.allPass(site.downloadableCondition, location)) {
           process.nextTick(prepareDownload.bind(null, site, context));
         }
+
         if (site.marking) {
           process.nextTick(initMarking.bind(null, site, context));
         }

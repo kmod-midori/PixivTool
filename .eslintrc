@@ -32,5 +32,6 @@
       }
     ],
     "no-unused-vars":0,
+    "no-lone-blocks": 0
   }
 }
