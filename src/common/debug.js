@@ -5,9 +5,10 @@
   EventEmitter.prototype.emit = function(name) {
     var args = Array.prototype.slice.call(arguments);
     if (!(this === process.stderr && name === 'drain') && name !== 'data') {
-      console.debug("Event '%s', arguments: %s",
-                    name, inspect(args.slice(1), false, 1));
+      debug('Event:' + name)('args: %s', inspect(args.slice(1), false, 1));
     }
     return emit_.apply(this, args);
   };
+
+  debug.enable('*');
 })();

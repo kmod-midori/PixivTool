@@ -25,3 +25,5 @@ routes = (
 run(routes, HashLocation, (Root) => {
   React.render(<Root/>, document.body);
 });
+
+require('src/common/debug');

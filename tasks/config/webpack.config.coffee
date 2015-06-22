@@ -65,7 +65,7 @@ module.exports =
     new webpack.ProvidePlugin({
       _: 'lodash'
       ctx: path.resolve './src/adapter/ctx.js'
-      log: path.resolve './src/common/logger.js'
+      debug: 'debug'
       Promise:'bluebird'
       React: 'react',
       R: 'ramda'

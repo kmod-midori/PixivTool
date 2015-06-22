@@ -5,7 +5,7 @@
     "node": true
   },
   "globals": {
-    "log": false,
+    "debug": false,
     "ctx": false,
     "_":false,
     "DEBUG":false,
