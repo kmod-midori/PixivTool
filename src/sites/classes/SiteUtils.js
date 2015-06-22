@@ -30,26 +30,39 @@ export class MatchedElement {
   }
 }
 
+/**
+ * Convert anything to a transform function.
+ * @param  {Array|String|Function} trans
+ * @return {Function}
+ */
+function processTransformer(trans){
+  if (typeof trans == 'string') {
+    return R.path(trans.split('.'));
+  }
+
+  if (Array.isArray(trans)) {
+    return R.path(trans);
+  }
+
+  if (typeof trans == 'function') {
+    return trans;
+  }
+
+  throw new TypeError(`Need String, Array or Function`);
+}
+
 export function createObject(mapping) {
   return function (obj) {
     var ret = {};
     R.toPairs(mapping).forEach(function (pair) {
-      var func, value;
-
-      if (typeof pair[1] == 'string') {
-        func = R.path(pair[1].split('.'));
-      } else if (Array.isArray(pair[1])) {
-        func = R.path(pair[1]);
-      } else if (typeof pair[1] == 'function') {
-        func = pair[1];
-      } else {
-        throw new TypeError(`${pair[0]} is not String, Array or Function`);
-      }
+      var value;
+      var func = processTransformer(pair[1]);
 
       value = func(obj);
       if (typeof value == 'undefined') {
         throw new ReferenceError(`${pair[0]} is undefined in target object`);
       }
+
       ret[pair[0]] = value;
     });
 
