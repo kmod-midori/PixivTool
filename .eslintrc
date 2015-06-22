@@ -32,6 +32,8 @@
       }
     ],
     "no-unused-vars":0,
+    "eol-last": 1,
+    "complexity": [1, 4],
     "no-lone-blocks": 0
   }
 }

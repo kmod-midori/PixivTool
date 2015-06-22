@@ -36,6 +36,10 @@ import_area:
   en: Drop DB file in to white area to import
   zh_CN: 将 DB 文件拖入白色区域即可导入。
 
+hash_mismatch:
+  en: Hash mismatch, stopping
+  zh_CN: 文件校验失败，已停止导入
+
 save:
   en: Save
   zh_CN: 保存
